@@ -14,7 +14,7 @@ const VerifyEmail = () => {
 
     const verifyUserEmail = async () => {
         try {
-            const { data } = await axios.get(`${process.env.BACKEND_URL}/api/auth/verify?token=${token}`);
+            const { data } = await axios.get(`https://booksheaven.onrender.com/api/auth/verify?token=${token}`);
 
             alert(data.message);
         } catch (error) {

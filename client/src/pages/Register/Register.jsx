@@ -28,7 +28,7 @@ const Register = () => {
       if (newUser.image) formDataToSend.append("image", newUser.image);
 
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/user/register`,
+        `https://booksheaven.onrender.com/api/user/register`,
         formDataToSend,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

@@ -12,7 +12,7 @@ const useLogin = () => {
 
     return useMutation({
         mutationFn: async(values) => {
-                    const res = await axiosInstance.post("http://localhost:3200/api/user/login", values);
+                    const res = await axiosInstance.post("/api/user/login", values);
                     return res.data;
                 },
         onSuccess: (data) => {

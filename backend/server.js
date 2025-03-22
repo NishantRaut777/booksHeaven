@@ -5,6 +5,8 @@ const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const cronJobs = require("./services/cronJobs");
 const cors = require('cors');
+const path = require('path');
+
 
 // const corsOptions = {
 //     origin: '*',
@@ -42,8 +44,14 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({  extended: true }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'build')));
 
 cronJobs();
+
+app.use((req, res, next) => {
+  console.log(`Incoming Request: ${req.method} ${req.url}`);
+  next();
+});
 
 // Routes
 app.use("/api/user", require("./routes/userRoutes"));
@@ -51,6 +59,11 @@ app.use("/api/books", require("./routes/bookRoutes"));
 app.use("/api/author", require("./routes/authorRoutes"));
 app.use("/api/cart", require("./routes/cartRoutes"));
 app.use("/api/order", require("./routes/orderRoutes"));
+
+app.get('*', (req, res) => {
+  console.log(`Fallback route triggered for: ${req.originalUrl}`);
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 const port = 3200;
 app.listen(port, ()=> {

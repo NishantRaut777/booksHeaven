@@ -17,10 +17,12 @@ const cors = require('cors');
 dotenv.config();
 
 console.log(process.env.NODE_ENV);
-const allowedOrigin =
-  process.env.NODE_ENV === "development"
-    ? `${process.env.FRONTEND_URL}` 
-    : "https://your-frontend-production-url.com";
+// const allowedOrigin =
+//   process.env.NODE_ENV === "development"
+//     ? `${process.env.FRONTEND_URL}` 
+//     : "https://your-frontend-production-url.com";
+
+const allowedOrigin = process.env.FRONTEND_URL;
 
 connectDB();
 

@@ -22,10 +22,26 @@ import VerifyEmail from './pages/VerifyEmail/VerifyEmail';
 import CategoryBooks2 from './pages/CategoryBooks2/CategoryBooks2';
 import AuthorBooks from './pages/AuthorBooks/AuthorBooks';
 
+import { useEffect } from 'react';
+import axiosInstance from './api/axios';
+
 
 const queryClient = new QueryClient()
 
 function App() {
+
+  useEffect(() => {
+    const refreshUser = async () => {
+      try{
+        await axiosInstance.get("/api/user/refresh-token");
+      } catch(error){
+        console.log("User session expired")
+      }
+    };
+
+    refreshUser();
+  }, []);
+
   return (
    <>
     <QueryClientProvider client={queryClient}>

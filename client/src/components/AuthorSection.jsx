@@ -35,7 +35,7 @@ const AuthorSection = () => {
 
   return (
     <>
-      <div className="flex items-center pl-10 py-7">
+      <div className="flex items-center pl-4 pr-2 py-3 md:pl-10 md:py-7">
         <div
           className="author-scroll-container flex flex-row gap-7 overflow-x-auto scroll-smooth whitespace-nowrap w-[98%] scrollbar-hide md:w-[95%]"
           ref={scrollContainerRef}
@@ -55,7 +55,7 @@ const AuthorSection = () => {
         </div>
 
         <div
-          className="w-10 h-10 flex justify-center items-center text-2xl font-bold cursor-pointer bg-[#f59f62] rounded-full"
+          className="w-10 h-10 flex justify-center items-center text-2xl font-bold cursor-pointer hover:bg-[#f59f62] transition duration-700 ease-in-out rounded-full mx-4"
           onClick={slideRight}
         >
           <ChevronRight className="w-5 h-5" />

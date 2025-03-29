@@ -155,23 +155,48 @@ const loginUser = async (req, res) => {
         .send({ message: "Invalid Credentials", success: false });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
-    const { password: password, ...rest } = user._doc;
-    const finalData = { ...rest, success: true, token: token };
+    // const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    //   expiresIn: "1d",
+    // });
+    // const { password: password, ...rest } = user._doc;
+    // const finalData = { ...rest, success: true, token: token };
 
     // res
     //   .cookie("access_token", token, { httpOnly: true })
     //   .status(200)
     //   .json(finalData);
 
-    res.cookie("access_token", token, {
-      httpOnly: true, // Prevent JavaScript access
-      secure: process.env.NODE_ENV === "production", // Use secure cookies in production (https)
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict", // Set for cross-origin requests
-    }).status(200)
-      .json(finalData);
+    // res.cookie("access_token", token, {
+    //   httpOnly: true, // Prevent JavaScript access
+    //   secure: process.env.NODE_ENV === "production", // Use secure cookies in production (https)
+    //   sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict", // Set for cross-origin requests
+    // }).status(200)
+    //   .json(finalData);
+
+
+    const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+
+    const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_REFRESH_SECRET, { expiresIn: "7d" });
+
+    res.cookie("refresh_token", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict",
+      path: "/api/user/refresh-token", // Restrict cookie to only refresh route
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    // Store access token in cookie
+    res.cookie("access_token", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict",
+      maxAge: 24 * 60 * 60 * 1000, 
+    });
+
+    const { password, ...rest } = user._doc;
+
+    res.status(200).json({ ...rest, success: true });
       
   } catch (error) {
     console.log(error);
@@ -180,6 +205,36 @@ const loginUser = async (req, res) => {
       .send({ message: `Login Controller Error: ${error.message}` });
   }
 };
+
+const refreshToken = async(req, res) => {
+  try {
+    const refreshToken = req.cookies.refresh_token;
+
+    if(!refreshToken){
+      return res.status(401).json({ message: "Unauthorized: No refresh token" });
+    }
+
+    // Verify refresh token
+    jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, decoded) => {
+      if (err) return res.status(403).json({ message: "Forbidden: Invalid refresh token" });
+
+      // Generate new access token
+      const accessToken = jwt.sign({ id: decoded.id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+
+      res.cookie("access_token", accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+
+      return res.status(200).json({ success: true });
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: `Refresh Token Error: ${error.message}` });
+  }
+}
 
 const getCurrentUser = async(req, res) => {
   try{
@@ -344,6 +399,7 @@ module.exports = {
   registerUser,
   verifyEmail,
   loginUser,
+  refreshToken,
   getCurrentUser,
   updateProfile,
   logoutController,

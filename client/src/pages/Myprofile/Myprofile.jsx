@@ -8,8 +8,6 @@ import useUserActions from '../../hooks/useUserActions';
 import { useMutation } from '@tanstack/react-query';
 import useOrderActions from '../../hooks/useOrderActions';
 import { useQuery } from '@tanstack/react-query';
-import "./Myprofile.css";
-import Footer from '../../components/Footer';
 
 const Myprofile = () => {
     // const dispatch = useDispatch();
@@ -66,77 +64,76 @@ const Myprofile = () => {
   return (
     <>
         <Navbar2 />
-        <div className="py-6 flex flex-col md:flex-row md:justify-between gap-8">
-            <div className="flex flex-col items-center w-full md:w-[55%] p-6 bg-white shadow-lg rounded-lg">
-                <div className="hover:scale-105 transition-transform">
-                    <img 
-                        src={user?.profileImg} 
-                        alt="Profile" 
-                        className="w-24 h-24 rounded-full cursor-pointer border-2 border-blue-500" 
-                    />
+        <div className='py-4'>
+            <div className='profile-info-div basis-1/2 flex flex-col items-center justify-center'>
+                <div>
+                    <img src={user?.profileImg} alt="" className='w-24 rounded-sm cursor-pointer'/>
                 </div>
 
-                <div className="mt-6 space-y-6 w-[80%] md:w-[60%]">
-                    {['name', 'email', 'password'].map((field) => (
-                        <div key={field} className="flex flex-col">
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">
-                                {field.charAt(0).toUpperCase() + field.slice(1)}
-                            </label>
-                            <input 
-                                type={field === 'password' ? 'password' : 'text'}
-                                name={field} 
-                                value={formData?.[field]} 
-                                disabled={!isEditing} 
-                                onChange={handleChange} 
-                                className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 transition-all disabled:bg-gray-100"
-                            />    
+                <div className='mt-4 space-y-4 w-[70%] md:w-[40%]'>
+                
+                        <div className='flex flex-col'>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <input type="text" name='name' value={formData?.name} disabled={!isEditing} onChange={handleChange} className="w-full px-3 py-2 border rounded-sm focus:outline-none" required/>    
                         </div>
-                    ))}
 
-                    <div className="flex gap-4 mt-6">
-                        {isEditing ? (
-                            <button onClick={() => handleSave(formData)} className="w-28 px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition-all active:scale-95">
-                                Save
-                            </button>
-                        ) : (
-                            <button onClick={handleEdit} className="w-28 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all active:scale-95">
-                                Edit
-                            </button>
-                        )}
-                    </div>
+                        <div className='flex flex-col'>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" name='email' value={formData?.email} disabled={!isEditing} onChange={handleChange} className="w-full px-3 py-2 border rounded-sm focus:outline-none" required/>
+
+                            
+                        </div>
+
+                        <div className='flex flex-col'>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" name='password' value={formData.password} disabled={!isEditing} onChange={handleChange} className="w-full px-3 py-2 border rounded-sm focus:outline-none" required/>
+                            
+                        </div>
+
+                        <div className='flex gap-4 mt-4'>
+                            { isEditing ? (
+                                <button onClick={() => handleSave(formData)} className='w-28 px-4 py-2 bg-green-500 text-white rounded'>
+                                    Save
+                                </button>
+                            ): (
+                                <button onClick={handleEdit} className='w-28 px-4 py-2 bg-blue-500 text-white rounded'>
+                                    Edit
+                                </button>
+                            ) }
+                        </div>
                 </div>
             </div> 
 
-            <div className="myprofile-orders-scroll-container p-6 w-full md:w-[45%] bg-white shadow-lg rounded-lg md:h-[90vh] md:overflow-y-auto">
-                <h2 className="text-xl font-semibold mb-4 text-gray-800">Your Orders</h2>
-                {isLoadingOrders ? (
-                    <p className="text-gray-500">Loading orders...</p>
+            <div className='myorders-div p-4'>
+                <h2 className='text-xl font-semibold mb-4'>Your Orders</h2>
+                { isLoadingOrders ? (
+                    <p>Loading orders...</p>
                 ) : orders?.length === 0 ? (
-                    <p className="text-gray-500">No orders found</p>
-                ) : (
+                    <p>No orders found</p>
+                ): (
                     <>
                         {orders?.slice(0, showAllOrders ? orders?.length : 4)?.map((order) => (
-                            <div key={order?._id} className="border p-4 rounded-md mb-4 shadow-sm bg-gray-50 hover:scale-105 transition-transform">
-                                <p className="text-gray-800 font-medium">
+                            <div key={order?._id} className='border p-4 rounded-md mb-4 shadow-sm'>
+                            <p className="text-gray-800 font-medium">
                                     Date: {new Date(order?.date_added).toLocaleDateString("en-IN", {
                                         day: "2-digit",
                                         month: "short",
                                         year: "numeric",
                                     })}
                                 </p>
-                                <p className="text-gray-600">Total Bill: ₹{order?.bill}</p>
-                                <p className="text-gray-600">Items:</p>
-                                <ul className="flex flex-row flex-wrap list-disc pl-5">
-                                    {order?.items?.map((item) => (
-                                        <li key={item?.bookId} className="text-gray-700 flex gap-3 mr-3 my-3">
-                                            <img src={item?.imgurl} alt={item?.name} className="w-12 h-12 object-cover rounded" />
+                                <p className='text-gray-600'>Total Bill: {order?.bill}</p>
+                                <p className='text-gray-600'>Items:</p>
+                                <ul className='flex flex-row flex-wrap list-disc pl-5'>
+                                    { order?.items?.map((item) => (
+                                        <li key={item?.bookId} className='text-gray-700 flex gap-3 mr-3 my-3'>
+                                            <img src={item?.imgurl}  alt={item?.name} className='w-12 h-12 object-cover rounded' />
                                             <div>
-                                                <p className="font-medium">{item?.name}</p>
+                                                <p className='font-medium'>{item?.name}</p>
                                                 <p>Quantity: {item?.quantity}</p>
                                                 <p>Price: ₹{item?.price}</p>
                                             </div>
                                         </li>
-                                    ))}
+                                    )) }
                                 </ul>
                             </div>
                         ))}
@@ -144,16 +141,15 @@ const Myprofile = () => {
                 )}
 
                 {orders?.length > 4 && (
-                    <button
-                        onClick={() => setShowAllOrders(!showAllOrders)}
-                        className="mt-4 text-blue-500 underline cursor-pointer active:scale-95"
-                    >
-                        {showAllOrders ? "Show Less" : "See More"}
-                    </button>
-                )}
+                <button
+                    onClick={() => setShowAllOrders(!showAllOrders)}
+                    className="mt-4 text-blue-500 underline cursor-pointer"
+                >
+                    {showAllOrders ? "Show Less" : "See More"}
+                </button>
+            )}
             </div>
         </div>
-    <Footer />
         
     </>
     

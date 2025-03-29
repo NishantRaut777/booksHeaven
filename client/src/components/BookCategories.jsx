@@ -22,18 +22,18 @@ const BookCategories = () => {
 
   return (
     <>
-    <div className='flex items-center space-x-4 my-10 pl-10 pr-2'>
+    <div className='flex items-center space-x-4 my-10 pl-4 pr-2 md:pl-10'>
          <div ref={scrollContainerRef} className='bookCategories-2-container flex space-x-5 overflow-x-auto  scroll-smooth whitespace-nowrap w-[98%] scrollbar-hide md:w-[95%]'>
         { categories.map((cat, index) => (
             <div key={index} 
-            className='w-32 h-20 border border-red-600 mr-5 flex justify-center items-center cursor-pointer shrink-0 rounded-md md:w-48 md:h-32' onClick={() => handleCategoryClick(cat)}>
+            className='w-32 h-20 border border-red-600  flex justify-center items-center cursor-pointer shrink-0 rounded-md md:w-48 md:h-32' onClick={() => handleCategoryClick(cat)}>
                 {cat}
             </div>
         ))
 
         }
     </div>
-    <div className='w-10 h-10 flex justify-center items-center text-2xl font-bold cursor-pointer bg-[#f59f62] rounded-full' onClick={slideRight}>
+    <div className='w-10 h-10 flex justify-center items-center text-2xl font-bold cursor-pointer hover:bg-[#f59f62] transition duration-700 ease-in-out  rounded-full' onClick={slideRight}>
     <ChevronRight className="w-5 h-5" />
     </div>
     </div>

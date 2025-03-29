@@ -14,11 +14,16 @@ const axiosInstance = axios.create({
     withCredentials: true,
 });
 
+// to avoid infinite request to interceptor at the same time
+let isRefreshing = false;
+
 // Interceptor to handle expired tokens
 axiosInstance.interceptors.response.use(
     (response) => response, 
     async (error) => {
-        if (error.response?.status === 401) {
+        if (error.response?.status === 401 && !isRefreshing) {
+            isRefreshing = true;
+
             try {
                 // Try refreshing the token
                 await axiosInstance.get("/api/user/refresh-token");
@@ -29,7 +34,10 @@ axiosInstance.interceptors.response.use(
                 console.log("Refresh Token Expired: Logging out user");
                 // clearing user from redux
                 store.dispatch(setUser(null)); 
+                window.location.href = "/login";
                 return Promise.reject(refreshError);
+            } finally{
+                isRefreshing = false;
             }
         }
         return Promise.reject(error);

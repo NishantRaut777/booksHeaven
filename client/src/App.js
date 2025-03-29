@@ -33,9 +33,15 @@ function App() {
   useEffect(() => {
     const refreshUser = async () => {
       try{
-        await axiosInstance.get("/api/user/refresh-token");
+        const response = await axiosInstance.get("/api/user/refresh-token");
+
+        if (!response?.data?.success) {
+          console.log("User session expired");
+          window.location.href = "/login"; // Redirect to login if refresh fails
+        }
       } catch(error){
         console.log("User session expired")
+        window.location.href = "/login";
       }
     };
 

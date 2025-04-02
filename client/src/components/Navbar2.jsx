@@ -113,23 +113,23 @@ const Navbar2 = () => {
   };
 
   return (
-    <nav className="my-navbar relative">
-    <div className="container mx-auto flex items-center justify-between p-2 md:p-4">
+    <nav className="my-navbar relative bg-[#333333] text-white">
+    <div className="flex w-[100vw] items-center justify-between p-2 md:p-4">
       <div className="flex flex-col items-center w-full md:hidden">
         <div className="flex items-center w-full">
-          <Hamburger toggled={isOpen} size={20} toggle={setIsOpen} />
+          <Hamburger className="w-[10%]" toggled={isOpen} size={20} toggle={setIsOpen} />
 
-          <div className="flex-grow text-center text-lg font-bold">
+          <div className="w-[80%] text-center text-lg font-bold">
             <Link to={"/"} className="no-underline text-black-200">
               Logo
             </Link>
           </div>
 
-          <div className="relative">
+          <div className="relative w-[10%]">
             <button onClick={handleCartClick} className="no-underline text-black-200">
               <FontAwesomeIcon icon={faCartShopping} />
               {cartCount > 0 && (
-                <span className="absolute -right-2 -top-2 bg-red-50">{cartCount}</span>
+                <span className="absolute left-3 -top-3 bg-white text-blue-500 w-4 rounded-full">{cartCount}</span>
               )}
             </button>
           </div>
@@ -158,13 +158,13 @@ const Navbar2 = () => {
             Logo
           </Link>
         </div>
-        <div className="flex justify-center flex-grow mx-4">
-          <form className="w-[50%] flex justify-center relative" onSubmit={handleSubmit}>
+        <div className="flex w-[60%] justify-center">
+          <form className="w-[70%] flex justify-center relative" onSubmit={handleSubmit}>
             {/* Search Input */}
             <input
               type="text"
               placeholder="Search..."
-              className="w-[100%] p-2 rounded border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              className="w-[100%] p-2 rounded border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-black"
               onChange={(e) => setSearchValue(e.target.value)}
               value={searchValue}
             />
@@ -180,7 +180,7 @@ const Navbar2 = () => {
         </div>
 
 
-        <div className="flex space-x-4">
+        <div className="flex items-center justify-center space-x-4">
           <Link to={"/myprofile"} className="no-underline text-black-200">
             Myprofile
           </Link>
@@ -189,9 +189,19 @@ const Navbar2 = () => {
             <button onClick={handleCartClick} className="no-underline text-black-200">
               <FontAwesomeIcon icon={faCartShopping} />
               {cartCount > 0 && (
-                <span className="absolute -right-2 -top-2 bg-red-50">{cartCount}</span>
+                <span className="absolute -right-3 -top-3 bg-white text-blue-500 px-1 rounded-full">{cartCount}</span>
               )}
             </button>
+          </div>
+
+          <div className="login-register-btn">
+              <Link to={"/login"} className="no-underline px-4 py-3">
+            Login
+          </Link>
+
+          <Link to={"/register"} className="no-underline px-4 py-3">
+            Register
+          </Link>
           </div>
         </div>
       </div>
@@ -200,7 +210,7 @@ const Navbar2 = () => {
     {/* Cart Drawer */}
     <div className={`fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform transition-transform duration-300 z-50 flex flex-col ${isCartOpen ? "translate-x-0" : "translate-x-full"}`}>
   <div className="flex justify-between p-4 border-b">
-    <h1 className="text-xl font-bold">My Cart</h1>
+    <h1 className="text-xl font-bold text-black">My Cart</h1>
     <button className="text-xl" onClick={() => setIsCartOpen(false)}>✖</button>
   </div>
 
@@ -215,15 +225,15 @@ const Navbar2 = () => {
 
       {/* Product Details */}
       <div className="ml-4 flex-1">
-        <h2 className="font-semibold text-sm">{item.name}</h2>
+        <h2 className="font-semibold text-sm text-black">{item.name}</h2>
         <div className="flex items-center space-x-2">
           <span className="text-gray-500 line-through text-sm">Rs. {item.originalPrice}</span>
           <span className="text-black font-semibold">Rs. {item.price}</span>
         </div>
         <div className="flex items-center space-x-2 mt-2">
-          <button className="px-2 bg-gray-300 rounded hover:bg-green-300 transition" onClick={() => handleIncrementCartProduct(item.bookId)}>+</button>
-          <span>{item.quantity}</span>
-          <button className="px-2 bg-gray-300 rounded hover:bg-red-300 transition" onClick={() => handleDecrementCartProduct(item.bookId, item.quantity)}>-</button>
+          <button className="px-2 text-black bg-gray-300 rounded hover:bg-green-300 transition" onClick={() => handleIncrementCartProduct(item.bookId)}>+</button>
+          <span className="text-black">{item.quantity}</span>
+          <button className="px-2 text-black bg-gray-300 rounded hover:bg-red-300 transition" onClick={() => handleDecrementCartProduct(item.bookId, item.quantity)}>-</button>
         </div>
       </div>
 

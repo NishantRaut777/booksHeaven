@@ -24,7 +24,7 @@ const CategoryBooks = () => {
     if (isError) return <p>Something went wrong</p>
 
   return (
-    <div>
+    <div className='py-8'>
       <h3 className='text-center font-semibold text-lg md:text-2xl'>Fiction Addiction</h3>
       <div className='flex justify-center '>
       <ul className='flex justify-center flex-wrap'>

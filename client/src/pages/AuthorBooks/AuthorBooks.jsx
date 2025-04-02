@@ -4,6 +4,8 @@ import useBookActions from '../../hooks/useBookActions';
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import Navbar2 from "../../components/Navbar2";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const AuthorBooks = () => {
     const location = useLocation();
@@ -28,9 +30,10 @@ const AuthorBooks = () => {
         { isError && <p>Something went wrong</p> }
 
         <div className="my-3">
-          <Link to={`/`}>
-          Go Back
-          </Link>
+           <Link to={`/`} className="flex items-center gap-2 text-black-500 hover:text-black-700 transition-transform duration-200 active:scale-95">
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                    <span>Go Back</span>
+                    </Link>
         </div>
 
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">

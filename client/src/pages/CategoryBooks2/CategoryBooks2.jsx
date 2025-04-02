@@ -5,6 +5,9 @@ import { useLocation } from "react-router-dom";
 import useBookActions from "../../hooks/useBookActions";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import Footer from "../../components/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const CategoryBooks2 = () => {
     const location = useLocation();
@@ -22,13 +25,14 @@ const CategoryBooks2 = () => {
   return (
     <>
       <Navbar2 />
-      <div className="container mx-auto mt-5 flex flex-col px-3">
+      <div className="container mx-auto mt-5 flex flex-col px-3 pb-12">
         { isLoading && <p>Loading Books....</p> }
         { isError && <p>Something went wrong</p> }
 
         <div className="my-3">
-          <Link to={`/`}>
-          Go Back
+          <Link to={`/`} className="flex items-center gap-2 text-black-500 hover:text-black-700 transition-transform duration-200 active:scale-95">
+          <FontAwesomeIcon icon={faArrowLeft} />
+          <span>Go Back</span>
           </Link>
         </div>
 
@@ -51,6 +55,7 @@ const CategoryBooks2 = () => {
             ) }
         </div>
       </div>
+      <Footer />
     </>
   );
 };

@@ -35,14 +35,14 @@ const AuthorSection = () => {
 
   return (
     <>
-      <div className="flex items-center pl-4 pr-2 py-3 md:pl-10 md:py-7">
+      <div className="flex items-center pr-2 pb-12 pt-8 md:pt-16 pl-10 md:py-7">
         <div
           className="author-scroll-container flex flex-row gap-7 overflow-x-auto scroll-smooth whitespace-nowrap w-[98%] scrollbar-hide md:w-[95%]"
           ref={scrollContainerRef}
         >
           {authorsData?.map((author) => (
             <div className="flex flex-col" onClick={() => handleAuthorClick(author?.name)}>
-              <div className="w-32 h-40 md:w-48 md:h-48">
+              <div className="w-28 h-28 md:w-48 md:h-48">
                 <img
                   src={author?.imgsrc}
                   alt=""

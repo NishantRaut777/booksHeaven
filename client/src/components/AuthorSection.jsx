@@ -35,7 +35,7 @@ const AuthorSection = () => {
 
   return (
     <>
-      <div className="flex items-center pr-2 pb-12 pt-8 md:pt-16 pl-10 md:py-7">
+      <div className="flex items-center pr-2 py-12 md:pt-16 pl-10 md:py-14 bg-[#ede6e4]">
         <div
           className="author-scroll-container flex flex-row gap-7 overflow-x-auto scroll-smooth whitespace-nowrap w-[98%] scrollbar-hide md:w-[95%]"
           ref={scrollContainerRef}

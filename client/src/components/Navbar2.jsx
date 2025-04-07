@@ -12,6 +12,7 @@ import { Trash } from "lucide-react";
 import { setCart } from "../redux/cart/cartSlice";
 import "../styles/Navbar2.css";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { clearUser } from "../redux/user/userSlice";
 
 
 const Navbar2 = () => {
@@ -34,6 +35,9 @@ const Navbar2 = () => {
 
   const cartNew = useSelector((state) => state.cart.cartData);
   const cartCount = cartNew?.items?.length;
+
+  const loggedInUser = useSelector((state) => state.user.user);
+  // console.log("LOGGED IN USER: ", loggedInUser);
 
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
@@ -194,7 +198,11 @@ const Navbar2 = () => {
             </button>
           </div>
 
-          <div className="login-register-btn">
+          { 
+            loggedInUser ? (
+              <Link className="hover:text-gray-400" onClick={() => dispatch(clearUser())}>Logout</Link>
+            ) : (
+              <div className="login-register-btn">
               <Link to={"/login"} className="no-underline px-4 py-3">
             Login
           </Link>
@@ -203,6 +211,10 @@ const Navbar2 = () => {
             Register
           </Link>
           </div>
+            )
+          }
+
+          
         </div>
       </div>
     </div>
@@ -282,6 +294,23 @@ const Navbar2 = () => {
           <li className="p-2">
             <Link to="/contact" className="hover:text-gray-400">Contact</Link>
           </li>
+          {
+            loggedInUser ? (
+              <li className="p-2">
+                <Link className="hover:text-gray-400" onClick={() => dispatch(clearUser())}>Logout</Link>
+              </li>
+            ) : 
+            <>
+            <li className="p-2">
+              <Link to="/login" className="hover:text-gray-400">Login</Link>
+            </li>
+
+            <li className="p-2">
+              <Link to="/register" className="hover:text-gray-400">Register</Link>
+            </li>
+            </>
+          }
+          
         </ul>
     </div>
   

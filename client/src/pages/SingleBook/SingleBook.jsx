@@ -97,18 +97,18 @@ const SingleBook = () => {
   return (
     <>
       <Navbar2 />
-      <section className="single-book-section md:py-10 px-4 md:px-10 bg-gray-100">
+      <section className="single-book-section py-4 md:py-10 px-4  bg-gray-100">
         <div className="single-book-container flex flex-col md:flex-row">
-          <div className="single-book-img py-8 flex justify-center md:w-[37%]">
+          <div className="single-book-img py-2 flex justify-center md:w-[25%]">
             <img
-              className="w-48 md:w-72 rounded-lg shadow-md"
+              className="w-48 h-48 md:w-60 md:h-60 rounded-lg shadow-md"
               src={book?.imgurl}
               alt=""
             />
           </div>
 
-          <div className="single-book-details-container px-5 md:w-[73%]">
-            <h1 className="text-3xl font-bold text-gray-800">{book.name}</h1>
+          <div className="single-book-details-container px-5 md:w-[75%]">
+            <h1 className="text-3xl font-bold text-gray-800 mt-2 md:mt-0">{book.name}</h1>
             <p className="text-lg text-gray-600 my-1">
               by{" "}
               <span className="font-semibold text-gray-800">{book.author}</span>

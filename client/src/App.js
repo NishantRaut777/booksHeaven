@@ -1,5 +1,5 @@
 import './index.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Homepage from './pages/Homepage/Homepage';
 import {
   useQuery,
@@ -30,6 +30,8 @@ const queryClient = new QueryClient()
 
 function App() {
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const refreshUser = async () => {
       try{
@@ -37,11 +39,13 @@ function App() {
 
         if (!response?.data?.success) {
           console.log("User session expired");
-          window.location.href = "/login"; // Redirect to login if refresh fails
+          // window.location.href = "/login"; // Redirect to login if refresh fails
+          navigate("/login")
         }
       } catch(error){
         console.log("User session expired")
-        window.location.href = "/login";
+        // window.location.href = "/login";
+        navigate("/login")
       }
     };
 

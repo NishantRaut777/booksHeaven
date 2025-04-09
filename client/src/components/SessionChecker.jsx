@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axiosInstance from '../axios';
+import axiosInstance from '../api/axios';
 
 const SessionChecker = () => {
     const navigate = useNavigate();

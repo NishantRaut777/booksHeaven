@@ -24,33 +24,12 @@ import AuthorBooks from './pages/AuthorBooks/AuthorBooks';
 
 import { useEffect } from 'react';
 import axiosInstance from './api/axios';
+import SessionChecker from './components/SessionChecker';
 
 
 const queryClient = new QueryClient()
 
 function App() {
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const refreshUser = async () => {
-      try{
-        const response = await axiosInstance.get("/api/user/refresh-token");
-
-        if (!response?.data?.success) {
-          console.log("User session expired");
-          // window.location.href = "/login"; // Redirect to login if refresh fails
-          navigate("/login")
-        }
-      } catch(error){
-        console.log("User session expired")
-        // window.location.href = "/login";
-        navigate("/login")
-      }
-    };
-
-    refreshUser();
-  }, []);
 
   return (
    <>
@@ -58,6 +37,7 @@ function App() {
 
     
       <Router>
+        <SessionChecker />
         <Routes>
           <Route path='/login' element={<Login />} />
           <Route path="/register" element={<Register />} />

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import axios from "axios";
 import useLogin from '../../hooks/useLogin';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
 
@@ -24,7 +25,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <form
-        className="w-full max-w-md p-6 bg-white rounded-lg shadow-md"
+        className="w-full max-w-md p-6 bg-white rounded-sm shadow-md"
         onSubmit={handleSubmit}
       >
         <h2 className="mb-6 text-2xl font-bold text-center text-gray-700">
@@ -58,9 +59,11 @@ const Login = () => {
           />
         </div>
        
-        <button
+       <div className='flex flex-row my-2'>
+          <div className='mr-3'>
+          <button
           type="submit"
-          className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:ring focus:ring-blue-400"
+          className="w-full px-10 py-2 text-white bg-blue-500 rounded-sm hover:bg-blue-600 focus:ring focus:ring-blue-400"
           disabled={loginMutation.isLoading}
         >
           {loginMutation.isLoading ? "Logging in..." : "Log in"}
@@ -73,6 +76,15 @@ const Login = () => {
         {loginMutation.isSuccess && (
           <p className="mt-4 text-sm text-green-500">{loginMutation.data.message}</p>
         )}
+          </div>
+
+         
+          
+              <Link to="/register" className="px-10 py-2 bg-green-400 rounded-sm hover:bg-green-500 ">Register</Link>
+            
+          
+       </div>
+        
       </form>
     </div>
   )

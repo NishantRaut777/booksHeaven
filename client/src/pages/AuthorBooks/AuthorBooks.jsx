@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Navbar2 from "../../components/Navbar2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import Book2 from '../../components/Book2';
 
 const AuthorBooks = () => {
     const location = useLocation();
@@ -36,19 +37,10 @@ const AuthorBooks = () => {
                     </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5">
             { books?.length > 0 ? (
-                books?.map((book) => (
-                    <div key={book._id} className="border p-4">
-                    <Link to={`/book/${book?._id}`}>
-                        <div className="w-full h-48">
-                        <img src={book.imgurl} alt={book.name} className="w-full h-full" />
-                        </div>
-                        
-                        </Link>
-                        <h3 className="text-lg font-semibold">{book.name}</h3>
-                        <p>{book.author}</p>
-                    </div>
+                books?.map((book, index) => (
+                  <Book2 index={index} bookId={book._id} imgurl={book.imgurl} name={book.name} author={book.author} originalPrice={book.originalPrice} discountedPrice={book.discountedPrice} rating={book.rating} />
                 ))
             ): (
                 <p>No Books available for this author</p>

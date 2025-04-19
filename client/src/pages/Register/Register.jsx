@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -110,9 +111,12 @@ const Register = () => {
             className="w-full text-sm"
           />
         </div>
-        <button
+
+        <div className="flex flex-row my-2">
+          <div className="mr-3">
+          <button
           type="submit"
-          className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:ring focus:ring-blue-400"
+          className="w-full px-10 py-2 text-white bg-blue-500 rounded-sm hover:bg-blue-600 focus:ring focus:ring-blue-400"
           disabled={mutation.isLoading}
         >
           {mutation.isLoading ? "Registering..." : "Register"}
@@ -125,6 +129,13 @@ const Register = () => {
         {mutation.isSuccess && (
           <p className="mt-4 text-sm text-green-500">{mutation.data.message}</p>
         )}
+          </div>
+
+          
+          <Link to="/login" className="px-10 py-2 bg-green-400 rounded-sm hover:bg-green-500">Already a user?</Link>
+          
+        </div>
+       
       </form>
     </div>
   );

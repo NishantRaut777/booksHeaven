@@ -3,17 +3,17 @@ const JWT = require("jsonwebtoken");
 const authMiddleware = async(req,res,next) => {
     try {
         // get access to token from request
-        // const token = req.headers['authorization'].split(" ")[1];
+        const token = req.headers['authorization'].split(" ")[1];
 
-        const token = req.cookies.access_token;
+        // const token = req.cookies.access_token;
 
         if(!token){
             return res.status(401).json({ message: "Unauthorized: No token found" })
         }
 
        try {
-         const decoded = JWT.verify(token, process.env.JWT_SECRET);
-         req.user = { id: decoded.id };
+         const decodedToken = JWT.verify(token, process.env.JWT_SECRET);
+         req.user = { id: decodedToken.id, email: decodedToken.email };
          next();
 
        } catch (error) {

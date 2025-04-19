@@ -8,6 +8,7 @@ import Book from "../../components/Book";
 import useCartActions from "../../hooks/useCartActions";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../components/Footer";
 
 const SingleBook = () => {
   const { fetchRecommendedBooks } = useBookActions();
@@ -225,6 +226,7 @@ const SingleBook = () => {
           </div>
         )}
       </section>
+      <Footer />
     </>
   );
 };

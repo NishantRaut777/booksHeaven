@@ -17,7 +17,7 @@ const useLogin = () => {
                 },
         onSuccess: (data) => {
             if(data.success) {
-                // localStorage.setItem("jwtToken", data.token);
+                localStorage.setItem("jwtToken", data.token);
                 // setUser(data);
                 message.success("Login Successfully");
                 // queryClient.invalidateQueries(["user"]);

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +10,8 @@ const Register = () => {
     password: "",
     image: null,
   });
+
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,18 +29,31 @@ const Register = () => {
       formDataToSend.append("email", newUser.email);
       formDataToSend.append("password", newUser.password);
       if (newUser.image) formDataToSend.append("image", newUser.image);
-
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/user/register`,
-        formDataToSend,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-      return response.data;
+  
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/user/register`,
+          formDataToSend,
+          { headers: { "Content-Type": "multipart/form-data" }, validateStatus: () => true } // <= accept all status codes
+        );
+        return { data: response.data, status: response.status };
+      } catch (err) {
+        throw err;
+      }
     },
-
-    onSuccess: (data) => {
-      alert("User registered successfully: " + data.message);
+  
+    onSuccess: ({ data, status }) => {
+      if (status === 201) {
+        alert("User registered successfully: " + data.message);
+        navigate(`/verify-otp?email=${formData.email}`);
+      } else if (status === 209) {
+        alert(data.message); // "Otp Already sent"
+        navigate(`/verify-otp?email=${formData.email}`);
+      } else {
+        alert("Registration response: " + data.message);
+      }
     },
+  
     onError: (error) => {
       alert(
         "Registration failed: " + error.response?.data?.message || error.message
@@ -112,30 +127,42 @@ const Register = () => {
           />
         </div>
 
-        <div className="flex flex-row my-2">
-          <div className="mr-3">
-          <button
-          type="submit"
-          className="w-full px-10 py-2 text-white bg-blue-500 rounded-sm hover:bg-blue-600 focus:ring focus:ring-blue-400"
-          disabled={mutation.isLoading}
-        >
-          {mutation.isLoading ? "Registering..." : "Register"}
-        </button>
-        {mutation.isError && (
-          <p className="mt-4 text-sm text-red-500">
-            {mutation.error.response?.data?.message || "Something went wrong!"}
-          </p>
-        )}
-        {mutation.isSuccess && (
-          <p className="mt-4 text-sm text-green-500">{mutation.data.message}</p>
-        )}
+        <div className="flex flex-col">
+          <div className="flex flex-row buttons-div">
+            <div className="mr-3">
+              <button
+                type="submit"
+                className="w-full px-10 py-2 text-white bg-blue-500 rounded-sm hover:bg-blue-600 focus:ring focus:ring-blue-400"
+                disabled={mutation.isPending}
+              >
+                {mutation.isPending ? "Registering..." : "Register"}
+              </button>
+            </div>
+
+            <div className="">
+              <Link
+                to="/login"
+                className="inline-flex items-center justify-center px-10 py-2 bg-green-400 rounded-sm hover:bg-green-500"
+              >
+                Already a user?
+              </Link>
+            </div>
           </div>
 
-          
-          <Link to="/login" className="px-10 py-2 bg-green-400 rounded-sm hover:bg-green-500">Already a user?</Link>
-          
+          <div className="register-status-div">
+            {mutation.isError && (
+              <p className="mt-4 text-sm text-red-500">
+                {mutation.error.response?.data?.message ||
+                  "Something went wrong!"}
+              </p>
+            )}
+            {mutation.isSuccess && (
+              <p className="mt-4 text-sm text-green-500">
+                {mutation.data.message}
+              </p>
+            )}
+          </div>
         </div>
-       
       </form>
     </div>
   );

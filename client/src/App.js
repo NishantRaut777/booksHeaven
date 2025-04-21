@@ -21,6 +21,8 @@ import Myprofile from './pages/Myprofile/Myprofile';
 import VerifyEmail from './pages/VerifyEmail/VerifyEmail';
 import CategoryBooks2 from './pages/CategoryBooks2/CategoryBooks2';
 import AuthorBooks from './pages/AuthorBooks/AuthorBooks';
+import VerifyOtp from './pages/VerifyOtp/VerifyOtp';
+import ResendOTP from './pages/ResendOTP/ResendOTP';
 
 
 const queryClient = new QueryClient()
@@ -35,6 +37,9 @@ function App() {
         <Routes>
           <Route path='/login' element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          <Route path='/verify-otp' element={<VerifyOtp />}  />
+          <Route path='/resendOtp' element={<ResendOTP /> } />
 
           <Route path='/verify' element={<VerifyEmail />} />
 

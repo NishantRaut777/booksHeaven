@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const cronJobs = require("./services/cronJobs");
 const cors = require('cors');
 const path = require('path');
+const multer = require("multer");
 
 
 // const corsOptions = {
@@ -53,6 +54,8 @@ app.use((req, res, next) => {
   next();
 });
 
+
+
 // Routes
 app.use("/api/user", require("./routes/userRoutes"));
 app.use("/api/books", require("./routes/bookRoutes"));
@@ -63,6 +66,16 @@ app.use("/api/order", require("./routes/orderRoutes"));
 app.get('*', (req, res) => {
   console.log(`Fallback route triggered for: ${req.originalUrl}`);
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+// Custom Multer error handling
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError || err.message.includes('Only .jpg')) {
+    return res.status(400).json({ success: false, message: err.message });
+  }
+
+  console.error("Unhandled Error:", err);
+  return res.status(500).json({ success: false, message: "Internal Server Error" });
 });
 
 const port = 3200;

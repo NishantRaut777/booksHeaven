@@ -31,7 +31,7 @@ const Login = () => {
         <h2 className="mb-6 text-2xl font-bold text-center text-gray-700">
           Login
         </h2>
-        
+
         <div className="mb-4">
           <label className="block mb-1 text-sm font-medium text-gray-600">
             Email
@@ -58,36 +58,46 @@ const Login = () => {
             required
           />
         </div>
-       
-       <div className='flex flex-row my-2'>
-          <div className='mr-3'>
-          <button
-          type="submit"
-          className="w-full px-10 py-2 text-white bg-blue-500 rounded-sm hover:bg-blue-600 focus:ring focus:ring-blue-400"
-          disabled={loginMutation.isLoading}
-        >
-          {loginMutation.isLoading ? "Logging in..." : "Log in"}
-        </button>
-        {loginMutation.isError && (
-          <p className="mt-4 text-sm text-red-500">
-            {loginMutation.error.response?.data?.message || "Something went wrong!"}
-          </p>
-        )}
-        {loginMutation.isSuccess && (
-          <p className="mt-4 text-sm text-green-500">{loginMutation.data.message}</p>
-        )}
+
+        <div className="flex flex-col">
+          <div className="flex flex-row buttons-div">
+            <div className="mr-3">
+              <button
+                type="submit"
+                className="w-full px-10 py-2 text-white bg-blue-500 rounded-sm hover:bg-blue-600 focus:ring focus:ring-blue-400"
+                disabled={loginMutation.isLoading}
+              >
+                {loginMutation.isLoading ? "Logging in..." : "Log in"}
+              </button>
+            </div>
+
+            <div className=''>
+              <Link
+                to="/register"
+                className="inline-flex items-center justify-center w-full px-10 py-2 bg-green-400 rounded-sm hover:bg-green-500 "
+              >
+                Register
+              </Link>
+            </div>
           </div>
 
-         
-          
-              <Link to="/register" className="px-10 py-2 bg-green-400 rounded-sm hover:bg-green-500 ">Register</Link>
-            
-          
-       </div>
-        
+          <div className="login-status-div">
+            {loginMutation.isError && (
+              <p className="mt-4 text-sm text-red-500">
+                {loginMutation.error.response?.data?.message ||
+                  "Something went wrong!"}
+              </p>
+            )}
+            {loginMutation.isSuccess && (
+              <p className="mt-4 text-sm text-green-500">
+                {loginMutation.data.message}
+              </p>
+            )}
+          </div>
+        </div>
       </form>
     </div>
-  )
+  );
 }
 
 export default Login

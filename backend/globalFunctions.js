@@ -10,7 +10,7 @@ async function validatePassword(password){
     return passwordRegex.test(password);
 }
 
-async function sendVerificationEmail(req, res, name, email,verificationToken){
+async function sendVerificationEmail(req, res, name, email,otp){
     try {
         // Send verification email
     const transporter = nodemailer.createTransport({
@@ -21,15 +21,14 @@ async function sendVerificationEmail(req, res, name, email,verificationToken){
         },
     });
 
-    const verificationURL = `${process.env.FRONTEND_URL}/verify?token=${verificationToken}`;
+    // const verificationURL = `${process.env.FRONTEND_URL}/verify?token=${verificationToken}`;
 
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
-        subject: 'Email Verification',
-        html: `<p>Hello ${name},</p>
-               <p>Please verify your email by clicking the link below:</p>
-               <a href="${verificationURL}">Verify Email</a>`,
+        subject: 'Your Otp Code',
+        html: `<p>Hello ${name}</p>
+               <p>Your OTP code is: ${otp}. It is valid for 10 minutes. Thank you !</p>`,
     };
 
     await transporter.sendMail(mailOptions);

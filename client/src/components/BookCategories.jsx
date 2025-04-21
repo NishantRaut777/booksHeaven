@@ -4,7 +4,19 @@ import "../styles/BookCategories.css"
 import { ChevronRight } from "lucide-react";
 
 const BookCategories = () => {
-    const categories = ["Kids","Sports","Manga","Cookery & Food",,"Biography","Business Management","International Law","Agriculture & Farming","Coffee Table","Hobbies Quizzes & Games"];
+
+    const categories = [
+      { name: "Kids", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgjbsjEgfjEOGW7yaUefsqiGX-yskikCmusw&s" },
+      { name: "Sports", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZASqGXvYTfHis_Fpt-AG5Tn8kmdVIZR7EaA&s" },
+      { name: "Manga", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTCWvcVK9oi9vQHgMazqozJr9fPqg5ZAxySg&s" },
+      { name: "Cookery & Food", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaRSYVwRj40k1ukDPBGJWEvMvZi2LRJXAlZA&s" },
+      { name: "Biography", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuP0T54HXEx_xe8m-lsgH6XnQzYBJRzMogkQ&s" },
+      { name: "Business Management", image: "/images/business.jpg" },
+      { name: "International Law", image: "/images/law.jpg" },
+      { name: "Agriculture & Farming", image: "/images/agriculture.jpg" },
+      { name: "Coffee Table", image: "/images/coffee.jpg" },
+      { name: "Hobbies Quizzes & Games", image: "/images/hobbies.jpg" },
+    ];
     const navigate = useNavigate();
     const scrollContainerRef = useRef(null);
 
@@ -22,23 +34,42 @@ const BookCategories = () => {
 
   return (
     <>
-    <div className='flex items-center space-x-4 my-10 pl-10 pr-2'>
-         <div ref={scrollContainerRef} className='bookCategories-2-container flex space-x-5 overflow-x-auto  scroll-smooth whitespace-nowrap w-[98%] scrollbar-hide md:w-[95%]'>
-        { categories.map((cat, index) => (
-            <div key={index} 
-            className='w-32 h-20 border border-red-600 mr-5 flex justify-center items-center cursor-pointer shrink-0 rounded-md md:w-48 md:h-32' onClick={() => handleCategoryClick(cat)}>
-                {cat}
-            </div>
-        ))
+      <div className="flex items-center space-x-4 my-10 pl-10 pr-2">
+        <div
+          ref={scrollContainerRef}
+          className="bookCategories-2-container flex space-x-5 overflow-x-auto  scroll-smooth w-[98%] scrollbar-hide md:w-[95%]"
+        >
+          {categories.map((cat, index) => (
+            <div
+              key={index}
+              onClick={() => handleCategoryClick(cat.name)}
+              className="relative w-32 h-20 md:w-48 md:h-32 mr-5 cursor-pointer shrink-0 rounded-md overflow-hidden group"
+            >
+              {/* Background image */}
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
+                style={{ backgroundImage: `url(${cat.image})` }}
+              ></div>
 
-        }
-    </div>
-    <div className='w-10 h-10 flex justify-center items-center text-2xl font-bold cursor-pointer bg-[#f59f62] rounded-full' onClick={slideRight}>
-    <ChevronRight className="w-5 h-5" />
-    </div>
-    </div>
+              {/* Soft black overlay */}
+              <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
+              {/* Category name */}
+              <div className="relative z-10 flex items-center justify-center h-full px-2 text-center text-white font-semibold text-sm md:text-base">
+                {cat.name}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div
+          className="w-10 h-10 flex justify-center items-center text-2xl font-bold cursor-pointer bg-[#f59f62] rounded-full"
+          onClick={slideRight}
+        >
+          <ChevronRight className="w-5 h-5" />
+        </div>
+      </div>
     </>
-  )
+  );
 }
 
 export default BookCategories

@@ -39,41 +39,67 @@ const registerUser = async (req, res) => {
     const existingUser = await userModel.findOne({ email: email });
 
     if (existingUser) {
-      return res
-        .status(200)
-        .send({ message: "User Already Exists", success: false });
+      if (existingUser.isVerified == true) {
+        return res
+          .status(200)
+          .send({ message: "User Already Exists", success: false });
+      } else if (existingUser.otp != "" || existingUser.otp != undefined) {
+        return res
+          .status(209)
+          .send({ message: "Otp Already sent", success: false });
+      } else {
+        return res
+          .status(200)
+          .send({ message: "User Already Exists", success: false });
+      }
     }
 
-    const currentPassword = password;
+    // const currentPassword = password;
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(currentPassword, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-    let profileImageURL = null;
-    if (req.file) {
-      profileImageURL = req.file.path;
-    }
+    // let profileImageURL = null;
+    // if (req.file) {
+    //   profileImageURL = req.file.path;
+    // }
 
-    const verificationToken = jwt.sign({ email }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    let profileImageURL = req.file ? req.file.path : null;
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpires = new Date(Date.now() + 10 * 60 * 1000);
+
+    // const verificationToken = jwt.sign({ email }, process.env.JWT_SECRET, {
+    //   expiresIn: "1h",
+    // });
 
     const newUser = new userModel({
       name,
       email,
       password: hashedPassword,
       profileImg: profileImageURL,
-      verificationToken: verificationToken,
+      otp,
+      otpExpires,
+      // verificationToken: verificationToken,
       isVerified: false,
     });
 
     await newUser.save();
+
+    // const isSend = await sendVerificationEmail(
+    //   req,
+    //   res,
+    //   name,
+    //   email,
+    //   verificationToken
+    // );
+
 
     const isSend = await sendVerificationEmail(
       req,
       res,
       name,
       email,
-      verificationToken
+      otp
     );
 
     if (isSend == true) {
@@ -95,6 +121,85 @@ const registerUser = async (req, res) => {
     });
   }
 };
+
+const verifyOtp = async(req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    const user = await userModel.findOne({ email });
+
+    if(!user){
+      return res.status(400).send({ message: "User not found", success: false });
+    }
+
+    if(user.isVerified){
+      return res.status(400).send({ message: "User already verified", success: false });
+    }
+
+    if(user.otp !== otp || user.otpExpires < new Date()){
+      return res.status(400).send({ message: "Invalid or Expired OTP", success: false });
+    }
+
+    user.isVerified = true;
+    user.otp = undefined;
+    user.otpExpires = undefined;
+
+    await user.save();
+
+    return res.status(200).send({ message: "Email Verified Successfully", success: true });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: `Verify OTP Controller Error : ${error.message}`,
+      success: false,
+    });
+  }
+}
+
+const resendOtp = async(req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await userModel.findOne({ email });
+
+    if(!user){
+      return res.status(400).send({ message: "User not found", success: false });
+    }
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpires = new Date(Date.now() + 10 * 60 * 1000);
+
+    await userModel.updateOne({ email: email }, {  "$set": {otp: otp, otpExpires: otpExpires} });
+
+    const isSend = await sendVerificationEmail(
+      req,
+      res,
+      user.name,
+      email,
+      otp
+    );
+
+    if (isSend == true) {
+      return res.status(201).send({
+        message: "Otp sent Successfully",
+        success: true,
+      });
+    } else {
+      return res.status(500).send({
+        message: "Something went wrong while resending otp",
+        success: false,
+      });
+    }
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: `Resend OTP Controller Error : ${error.message}`,
+      success: false,
+    });
+  }
+}
 
 const verifyEmail = async (req, res) => {
   try {
@@ -345,6 +450,8 @@ const authController = async (req, res) => {
 
 module.exports = {
   registerUser,
+  verifyOtp,
+  resendOtp,
   verifyEmail,
   loginUser,
   getCurrentUser,

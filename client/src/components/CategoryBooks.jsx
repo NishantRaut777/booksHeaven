@@ -93,8 +93,8 @@ const CategoryBooks = () => {
 
   return (
     <div className="">
-      <div className="flex flex-row justify-center items-center py-6 space-x-4">
-        <div className="left-logo cursor-pointer px-2 w-12" onClick={scrollLeft}>
+      <div className="flex flex-row justify-center items-center py-6 md:space-x-4">
+        <div className="left-logo cursor-pointer px-2 w-8 md:w-12" onClick={scrollLeft}>
           <img src={leftIcon}></img>
         </div>
         <div className="flex flex-row  overflow-x-auto mycategories-scroll-container w-4/5 pl-0 ml-0" ref={scrollContainerRef}>
@@ -106,7 +106,7 @@ const CategoryBooks = () => {
           ))}
         </div>
 
-        <div className="right-logo cursor-pointer px-2 w-12" onClick={scrollRight}>
+        <div className="right-logo cursor-pointer px-2 w-8 md:w-12" onClick={scrollRight}>
           <img src={rightIcon}></img>
         </div>
       </div>

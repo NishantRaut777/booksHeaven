@@ -69,16 +69,17 @@ const Mycart = () => {
   return (
     <>
       <Navbar2 />
-      <div>
+      <div className='py-5 px-2'>
         <h1 className="ml-2 text-lg font-semibold">My Cart</h1>
         <div className="my-cart-books-div flex flex-col">
             {cart?.items?.map((item) => (
               <div key={item.bookId} className="flex p-2 hover:bg-gray-100 transition duration-200 rounded-md">
-                <div className="book-img mr-2">
+                <div className='flex flex-row basis-[80vw]'>
+                <div className="book-img mr-2 pt-1">
                   <img className="size-20 rounded-md" src={item.imgurl} alt={item.name} />
                 </div>
 
-                <div className="book-desc w-[70%]">
+                <div className="book-desc pl-1">
                   <h2 className="break-words whitespace-normal line-clamp-2 text-base font-medium">{item.name}</h2>
                   <div className="my-cart-price-container text-sm">
                     <span className="line-through mr-2 text-gray-500">Rs. {item.originalPrice}</span>
@@ -86,23 +87,25 @@ const Mycart = () => {
                   </div>
 
                   <div className="my-cart-quantity-container flex items-center mt-1">
-                    <span
-                      className="cursor-pointer mr-2 px-2 py-1 bg-gray-300 rounded hover:bg-green-300 transition"
-                      onClick={() => handleIncrementCartProduct(item.bookId)}
-                    >
-                      +
-                    </span>
-                    <p className="text-lg font-semibold">{item.quantity}</p>
-                    <span
-                      className="cursor-pointer ml-2 px-2 py-1 bg-gray-300 rounded hover:bg-red-300 transition"
+                  <span
+                      className="cursor-pointer mr-2 px-2 py-1 bg-gray-300 rounded hover:bg-red-300 transition"
                       onClick={() => handleDecrementCartProduct(item.bookId, item.quantity)}
                     >
                       -
                     </span>
+                    <p className="text-lg font-semibold">{item.quantity}</p>
+                    <span
+                      className="cursor-pointer ml-2 px-2 py-1 bg-gray-300 rounded hover:bg-green-300 transition"
+                      onClick={() => handleIncrementCartProduct(item.bookId)}
+                    >
+                      +
+                    </span>
                   </div>
                 </div>
+                </div>
+                
 
-                <div className="my-cart-delete-icon">
+                <div className="my-cart-delete-icon flex justify-center basis-[10vw]">
                   <Trash
                     size={22}
                     className="cursor-pointer text-red-500 hover:text-red-700 transition duration-200"

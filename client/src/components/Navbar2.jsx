@@ -189,7 +189,7 @@ const Navbar2 = () => {
         </div>
 
 
-        <div className="flex items-center justify-center space-x-4">
+        <div className="flex items-center justify-center space-x-5">
           <Link to={"/myprofile"} className="no-underline text-black-200">
             Myprofile
           </Link>
@@ -248,9 +248,9 @@ const Navbar2 = () => {
           <span className="text-black font-semibold">Rs. {item.price}</span>
         </div>
         <div className="flex items-center space-x-2 mt-2">
-          <button className="px-2 text-black bg-gray-300 rounded hover:bg-green-300 transition" onClick={() => handleIncrementCartProduct(item.bookId)}>+</button>
+        <button className="px-2 text-black bg-gray-300 rounded hover:bg-red-300 transition" onClick={() => handleDecrementCartProduct(item.bookId, item.quantity)}>-</button>
           <span className="text-black">{item.quantity}</span>
-          <button className="px-2 text-black bg-gray-300 rounded hover:bg-red-300 transition" onClick={() => handleDecrementCartProduct(item.bookId, item.quantity)}>-</button>
+          <button className="px-2 text-black bg-gray-300 rounded hover:bg-green-300 transition" onClick={() => handleIncrementCartProduct(item.bookId)}>+</button>
         </div>
       </div>
 
@@ -260,6 +260,7 @@ const Navbar2 = () => {
       </button>
     </div>
   ))}
+  <p className="ml-2 text-black font-semibold">Total Bill: {cartNew?.bill}</p>
 </div>
 
 
@@ -294,10 +295,7 @@ const Navbar2 = () => {
             <Link to="/" className="hover:text-gray-400">Home</Link>
           </li>
           <li className="p-2 border-b border-gray-600">
-            <Link to="/about" className="hover:text-gray-400">About</Link>
-          </li>
-          <li className="p-2">
-            <Link to="/contact" className="hover:text-gray-400">Contact</Link>
+            <Link to="/myprofile" className="hover:text-gray-400">My Profile</Link>
           </li>
           {
             loggedInUser ? (

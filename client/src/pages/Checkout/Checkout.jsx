@@ -125,22 +125,24 @@ const Checkout = () => {
                       </span>
                     </div>
                     <div className="flex items-center space-x-3 mt-3">
-                      <button
-                        className="px-3 py-1 bg-gray-300 rounded text-lg hover:bg-green-300 transition"
-                        onClick={() => handleIncrementCartProduct(item.bookId)}
-                      >
-                        +
-                      </button>
-                      <span className="text-lg font-medium">
-                        {item.quantity}
-                      </span>
-                      <button
+                    <button
                         className="px-3 py-1  bg-gray-300 rounded text-lg hover:bg-red-300 transition"
                         onClick={() =>
                           handleDecrementCartProduct(item.bookId, item.quantity)
                         }
                       >
                         -
+                      </button>
+                      <span className="text-lg font-medium">
+                        {item.quantity}
+                      </span>
+                      
+
+                      <button
+                        className="px-3 py-1 bg-gray-300 rounded text-lg hover:bg-green-300 transition"
+                        onClick={() => handleIncrementCartProduct(item.bookId)}
+                      >
+                        +
                       </button>
                     </div>
                   </div>
@@ -154,6 +156,7 @@ const Checkout = () => {
               ))}
             </div>
           )}
+          { cartNew?.items?.length > 0 ?  <p className="ml-4 text-md font-semibold">Total Bill: {cartNew?.bill}</p>: ""}
         </div>
 
         <div className="md:w-[50%]">

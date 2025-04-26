@@ -2,3 +2,6 @@
     display: none; /* Chrome, Safari, and Edge */
 }
 
+.mycategories-scroll-container::-webkit-scrollbar{
+    display: none;
+}

@@ -34,16 +34,16 @@ const BookCategories = () => {
 
   return (
     <>
-      <div className="flex items-center space-x-4 my-10 pl-10 pr-2">
+      <div className="flex items-center space-x-2 md:space-x-4 my-10 pl-3 md:pl-10 pr-2">
         <div
           ref={scrollContainerRef}
-          className="bookCategories-2-container flex space-x-5 overflow-x-auto  scroll-smooth w-[98%] scrollbar-hide md:w-[95%]"
+          className="bookCategories-2-container flex overflow-x-auto  scroll-smooth w-[98%] scrollbar-hide md:w-[95%]"
         >
           {categories.map((cat, index) => (
             <div
               key={index}
               onClick={() => handleCategoryClick(cat.name)}
-              className="relative w-32 h-20 md:w-48 md:h-32 mr-5 cursor-pointer shrink-0 rounded-md overflow-hidden group"
+              className="relative w-32 h-20 md:w-48 md:h-32  mr-2 md:mr-5 cursor-pointer shrink-0 rounded-md overflow-hidden group"
             >
               {/* Background image */}
               <div
@@ -62,7 +62,7 @@ const BookCategories = () => {
           ))}
         </div>
         <div
-          className="w-10 h-10 flex justify-center items-center text-2xl font-bold cursor-pointer bg-[#f59f62] rounded-full"
+          className="w-7 h-7 md:w-10 md:h-10 flex justify-center items-center text-2xl font-bold cursor-pointer hover:bg-[#f59f62] rounded-full"
           onClick={slideRight}
         >
           <ChevronRight className="w-5 h-5" />

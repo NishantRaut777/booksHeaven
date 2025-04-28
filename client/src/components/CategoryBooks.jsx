@@ -97,7 +97,7 @@ const CategoryBooks = () => {
         <div className="left-logo cursor-pointer px-2 w-8 md:w-12" onClick={scrollLeft}>
           <img src={leftIcon}></img>
         </div>
-        <div className="flex flex-row  overflow-x-auto mycategories-scroll-container w-4/5 pl-0 ml-0" ref={scrollContainerRef}>
+        <div className="flex flex-row  overflow-x-auto mycategories-scroll-container w-5/5 md:w-4/5 pl-0 ml-0" ref={scrollContainerRef}>
           {categories2.map((cat, index) => (
             <div key={index} className="flex-shrink-0 flex flex-col justify-center items-center w-24 md:w-36 first:ml-0">
               <img src={cat?.logoURL} className='w-8 flex justify-center items-center'></img>

@@ -46,20 +46,20 @@ const Book2 = ({
   return (
     <div
       key={index}
-      className="flex flex-col w-full md:w-60 h-full flex-shrink-0 border-2 pt-4 cursor-pointer"
+      className="flex flex-col w-full h-full md:w-60 flex-shrink-0 border-2 md:pt-4 cursor-pointer"
     >
-      <div className="book-info-div">
-        <div className="image-div flex justify-center h-28 md:h-36">
-          <Link to={`/book/${bookId}`}>
+      <div className="book-info-div py-2 flex flex-row items-center md:flex-col">
+        <div className="image-div flex justify-center items-center  ml-3 w-28 h-28 md:ml-0 md:w-32 md:h-32 flex-shrink-0">
+          <Link to={`/book/${bookId}`} className="w-full h-full">
             <img
               src={imgurl}
-              className="w-24 md:w-28 h-full cursor-pointer"
+              className="w-full h-full cursor-pointer"
               alt="myimage"
             />
           </Link>
         </div>
 
-        <div className="book-info-div p-4 bg-white shadow-md rounded-lg">
+        <div className="book-info-div-inner ml-4 md:ml-0 p-4 bg-white shadow-md rounded-lg w-full">
           <h3 className="text-lg font-semibold text-gray-900 line-clamp-1">
             {name}
           </h3>

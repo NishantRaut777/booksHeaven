@@ -260,7 +260,8 @@ const Navbar2 = () => {
       </button>
     </div>
   ))}
-  <p className="ml-2 text-black font-semibold">Total Bill: {cartNew?.bill}</p>
+  { cartNew?.items?.length > 0 ? <p className="ml-2 text-black font-semibold">Total Bill: {cartNew?.bill}</p>: <p className="text-black font-semibold">Your cart is empty</p> }
+  
 </div>
 
 

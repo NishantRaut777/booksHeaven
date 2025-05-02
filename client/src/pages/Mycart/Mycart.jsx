@@ -75,7 +75,7 @@ const Mycart = () => {
             {cart?.items?.map((item) => (
               <div key={item.bookId} className="flex p-2 hover:bg-gray-100 transition duration-200 rounded-md">
                 <div className='flex flex-row basis-[80vw]'>
-                <div className="book-img mr-2 pt-1">
+                <div className="book-img mr-2 pt-1 flex-shrink-0">
                   <img className="size-20 rounded-md" src={item.imgurl} alt={item.name} />
                 </div>
 
@@ -115,6 +115,8 @@ const Mycart = () => {
               </div>
             ))}
         </div>
+
+        { cartNew?.items?.length > 0 ?  <p className="ml-2 py-2 text-md font-semibold">Total Bill: {cartNew?.bill}</p>: ""}
 
         {cartNew?.items?.length > 0 ? (
           <div className="border-t border-indigo-600 p-4 bg-white">

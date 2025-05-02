@@ -156,7 +156,7 @@ const Checkout = () => {
               ))}
             </div>
           )}
-          { cartNew?.items?.length > 0 ?  <p className="ml-4 text-md font-semibold">Total Bill: {cartNew?.bill}</p>: ""}
+          { cartNew?.items?.length > 0 ?  <p className="ml-4 py-2 text-md font-semibold">Total Bill: {cartNew?.bill}</p>: ""}
         </div>
 
         <div className="md:w-[50%]">

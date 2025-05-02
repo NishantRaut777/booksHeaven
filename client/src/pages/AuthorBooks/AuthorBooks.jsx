@@ -37,7 +37,7 @@ const AuthorBooks = () => {
                     </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5">
+        <div className="flex flex-row flex-wrap gap-3">
             { books?.length > 0 ? (
                 books?.map((book, index) => (
                   <Book2 index={index} bookId={book._id} imgurl={book.imgurl} name={book.name} author={book.author} originalPrice={book.originalPrice} discountedPrice={book.discountedPrice} rating={book.rating} />

@@ -89,7 +89,7 @@ const Book2 = ({
             e.currentTarget.blur();
             handleAddToCart();
           }}
-          className="p-3 m-2 cursor-pointer bg-purple-200 rounded-sm transition-all duration-300 ease-in-out hover:bg-orange-400 active:bg-purple-200"
+          className="p-3 m-2 cursor-pointer bg-purple-200 rounded-sm transition-all duration-300 ease-in-out hover:bg-orange-300 active:bg-purple-200"
         >
           Add to cart
         </span>

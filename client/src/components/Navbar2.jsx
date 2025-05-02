@@ -138,7 +138,7 @@ const Navbar2 = () => {
             <button onClick={handleCartClick} className="no-underline text-black-200">
               <FontAwesomeIcon icon={faCartShopping} />
               {cartCount > 0 && (
-                <span className="absolute left-3 -top-3 bg-white text-blue-500 w-4 rounded-full">{cartCount}</span>
+                <span className="absolute left-2 -top-2 bg-white text-blue-500 w-[1.7rem] text-sm rounded-full">{cartCount}</span>
               )}
             </button>
           </div>
@@ -198,7 +198,7 @@ const Navbar2 = () => {
             <button onClick={handleCartClick} className="no-underline text-black-200">
               <FontAwesomeIcon icon={faCartShopping} />
               {cartCount > 0 && (
-                <span className="absolute -right-3 -top-3 bg-white text-blue-500 px-1 rounded-full">{cartCount}</span>
+                <span className="absolute -right-4 w-[1.7rem] -top-2 bg-white text-blue-500 text-sm px-1 rounded-full">{cartCount}</span>
               )}
             </button>
           </div>

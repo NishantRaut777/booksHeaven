@@ -86,7 +86,7 @@ const Book = ({
       <div className="add-to-cart-div flex flex-row justify-between bg-gray-100 ">
         <span
           onClick={handleAddToCart}
-          className="p-3 m-2 cursor-pointer bg-purple-200 rounded-sm transition-all duration-300 ease-in-out hover:bg-orange-400 "
+          className="p-3 m-2 cursor-pointer bg-purple-200 rounded-sm transition-all duration-300 ease-in-out hover:bg-orange-300 "
         >
           Add to cart
         </span>

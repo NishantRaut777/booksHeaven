@@ -4,12 +4,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import useCartActions from "../../hooks/useCartActions";
 import { useDispatch } from "react-redux";
-import { setCart } from "../../redux/cart/cartSlice";
+import { clearCart, setCart } from "../../redux/cart/cartSlice";
 import { Trash } from "lucide-react";
 import axiosInstance from "../../api/axios";
 import useOrderActions from "../../hooks/useOrderActions";
 import Navbar2 from "../../components/Navbar2";
 import { useSelector } from "react-redux";
+import { message } from 'antd';
 
 const Checkout = () => {
   const [formData, setFormData] = useState({
@@ -33,6 +34,9 @@ const Checkout = () => {
   const updateCartMutation = useMutation({
     mutationFn: ({ bookId, type }) => updateCartItem(bookId, type),
     onSuccess: (data) => {
+      if(data.message){
+        message.success(data.message);
+      }
       dispatch(setCart(data));
       queryClient.invalidateQueries(["cart"]);
     },
@@ -44,6 +48,9 @@ const Checkout = () => {
   const deleteCartMutation = useMutation({
     mutationFn: ({ bookId }) => deleteCartItem(bookId),
     onSuccess: (data) => {
+      if(data.message){
+        message.success(data.message);
+      }
       dispatch(setCart(data));
       queryClient.invalidateQueries(["cart"]);
     },
@@ -78,8 +85,11 @@ const Checkout = () => {
         formData.phoneNumber
       );
     },
-    onSuccess: () => {
-      dispatch(setCart([]));
+    onSuccess: (data) => {
+      dispatch(clearCart());
+      if (data.message){
+        message.success(data.message)
+      }
       queryClient.invalidateQueries(["cart"]);
       navigate("/");
     },

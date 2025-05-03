@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { message } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
@@ -14,12 +15,14 @@ const VerifyOtp = () => {
             const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/user/verify-otp`, data);
             return response.data;
         },
-        onSuccess: () => {
-            alert("Email Verified successfully");
+        onSuccess: (data) => {
+            // alert("Email Verified successfully");
+            message.success(data.message);
             navigate("/login");
         },
-        onError: (error) => {
-            alert(error?.response?.data?.message || "OTP verification failed");
+        onError: (data) => {
+          message.error(data.message);
+            // alert(error?.response?.data?.message || "OTP verification failed");
         },
     });
 

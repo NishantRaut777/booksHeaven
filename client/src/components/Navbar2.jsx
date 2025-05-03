@@ -13,6 +13,7 @@ import { clearCart, setCart } from "../redux/cart/cartSlice";
 import "../styles/Navbar2.css";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { clearUser } from "../redux/user/userSlice";
+import { message } from 'antd';
 
 
 const Navbar2 = () => {
@@ -59,6 +60,9 @@ const Navbar2 = () => {
   const updateCartMutation = useMutation({
     mutationFn:({ bookId, type }) => updateCartItem(bookId, type),
     onSuccess: (data) => {
+      if(data.message){
+        message.success(data.message);
+      }
       dispatch(setCart(data));
       queryClient.invalidateQueries(['cart']);
     },
@@ -70,6 +74,9 @@ const Navbar2 = () => {
   const deleteCartMutation = useMutation({
     mutationFn: ({  bookId }) => deleteCartItem(bookId),
     onSuccess: (data) => {
+      if(data.message){
+        message.success(data.message);
+      }
       dispatch(setCart(data));
       queryClient.invalidateQueries(["cart"]);
     },

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { data, Link, useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -44,20 +45,24 @@ const Register = () => {
   
     onSuccess: ({ data, status }) => {
       if (status === 201) {
-        alert("User registered successfully: " + data.message);
+        // alert("User registered successfully: " + data.message);
+        message.success(data.message)
         navigate(`/verify-otp?email=${formData.email}`);
       } else if (status === 209) {
-        alert(data.message); // "Otp Already sent"
+        // alert(data.message); // "Otp Already sent"
+        message.success(data.message)
         navigate(`/verify-otp?email=${formData.email}`);
       } else {
-        alert("Registration response: " + data.message);
+        message.success(data.message);
+        // alert("Registration response: " + data.message);
       }
     },
   
-    onError: (error) => {
-      alert(
-        "Registration failed: " + error.response?.data?.message || error.message
-      );
+    onError: (data) => {
+      // alert(
+      //   "Registration failed: " + error.response?.data?.message || error.message
+      // );
+      message.error(data.message);
     },
   });
 

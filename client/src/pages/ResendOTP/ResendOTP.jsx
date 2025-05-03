@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { message } from 'antd';
 
 const ResendOTP = () => {
     const [email, setEmail] = useState("");
@@ -12,12 +13,14 @@ const ResendOTP = () => {
             const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/user/resend-otp`, data);
             return response.data;
         },
-        onSuccess: () => {
-            alert("Otp sent successfully");
+        onSuccess: (data) => {
+            // alert("Otp sent successfully");
+            message.success(data.message);
             navigate(`/verify-otp?email=${email}`);
         },
-        onError: (error) => {
-            alert(error?.response?.data?.message || "OTP Send failed");
+        onError: (data) => {
+            // alert(error?.response?.data?.message || "OTP Send failed");
+            message.error(data.message);
         },
     });
 

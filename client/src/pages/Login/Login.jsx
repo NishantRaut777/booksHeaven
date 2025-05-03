@@ -81,19 +81,6 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="login-status-div">
-            {loginMutation.isError && (
-              <p className="mt-4 text-sm text-red-500">
-                {loginMutation.error.response?.data?.message ||
-                  "Something went wrong!"}
-              </p>
-            )}
-            {loginMutation.isSuccess && (
-              <p className="mt-4 text-sm text-green-500">
-                {loginMutation.data.message}
-              </p>
-            )}
-          </div>
         </div>
       </form>
     </div>

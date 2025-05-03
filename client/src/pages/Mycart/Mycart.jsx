@@ -8,6 +8,7 @@ import { Trash } from "lucide-react";
 import Navbar2 from '../../components/Navbar2';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { message } from 'antd';
 
 const Mycart = () => {
     const dispatch = useDispatch();
@@ -25,6 +26,9 @@ const Mycart = () => {
     const updateCartMutation = useMutation({
       mutationFn:({ bookId, type }) => updateCartItem(bookId, type),
       onSuccess: (data) => {
+        if(data.message){
+          message.success(data.message);
+        }
         dispatch(setCart(data));
         queryClient.invalidateQueries(['cart']);
       },
@@ -36,6 +40,9 @@ const Mycart = () => {
     const deleteCartMutation = useMutation({
       mutationFn: ({  bookId }) => deleteCartItem(bookId),
       onSuccess: (data) => {
+        if(data.message){
+          message.success(data.message);
+        }
         dispatch(setCart(data));
         queryClient.invalidateQueries(["cart"]);
       },

@@ -8,6 +8,7 @@ import useOrderActions from "../../hooks/useOrderActions";
 import "./Myprofile.css";
 import Footer from "../../components/Footer";
 import { Pencil, Check } from "lucide-react";
+import defaultProfileImg from '../../assets/icons/profileImageDefault.avif'
 
 const Myprofile = () => {
   const userFrmState = useSelector((state) => state.user.user);
@@ -67,8 +68,8 @@ const Myprofile = () => {
       <div className="profile-info-div flex flex-row mx-7 my-4 px-3 py-3 bg-[#ff52001a] rounded-md">
         <div className="image-div">
           <img
-            src={user?.profileImg}
-            className="w-20 h-20 rounded-full cursor-pointer border-2 border-blue-500"
+            src={user?.profileImg || defaultProfileImg}
+            className="w-20 h-20 rounded-full cursor-pointer border-2"
             alt="Profile"
           />
         </div>

@@ -21,7 +21,7 @@ const AuthorBooks = () => {
       enabled: !!author,
     });
 
-    console.log("AUTHOR BOOKS ", books);
+    // console.log("AUTHOR BOOKS ", books);
 
   return (
     <>

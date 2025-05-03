@@ -46,9 +46,9 @@ const AuthorSection = () => {
         queryFn: fetchAllAuthors
     })
 
-    if(authorsData){
-        console.log(authorsData);
-    }
+    // if(authorsData){
+    //     console.log(authorsData);
+    // }
 
     if (isAuthorsLoading) return <p>Loading Authors...</p>
     if (isAuthorError) return <p>Error Occured while getting authors</p>

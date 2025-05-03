@@ -9,7 +9,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useCartActions from "../hooks/useCartActions";
 import useFetchCart from "../hooks/useFetchCart";
 import { Trash } from "lucide-react";
-import { setCart } from "../redux/cart/cartSlice";
+import { clearCart, setCart } from "../redux/cart/cartSlice";
 import "../styles/Navbar2.css";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { clearUser } from "../redux/user/userSlice";
@@ -119,6 +119,7 @@ const Navbar2 = () => {
   const handleLogout = async() => {
     localStorage.removeItem("jwtToken");
     dispatch(clearUser());
+    dispatch(clearCart());
   }
 
   return (

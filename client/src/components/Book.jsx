@@ -23,7 +23,7 @@ const Book = ({
 
     try {
       const res = await addToCart(item);
-      console.log(res.message);
+      // console.log(res.message);
 
       if (res && res.message) {
         message.success(res.message);

@@ -28,7 +28,7 @@ const checkoutOrder = async(req,res) => {
         if(resInsert){
             const result = await Cart.deleteOne({ userId });
             const finalData = { success: true, ...result }
-            res.status(200).send(finalData);
+            res.status(200).send({finalData: finalData, message: "Thank you for ordering. Happy Reading 😊"});
         } else{
             res.status(404).send("Something went wrong during checkout");
         }

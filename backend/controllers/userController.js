@@ -104,7 +104,7 @@ const registerUser = async (req, res) => {
 
     if (isSend == true) {
       return res.status(201).send({
-        message: "Registered Successfully",
+        message: "Please Verify yourself for successful registeration 🙂",
         success: true,
       });
     } else {

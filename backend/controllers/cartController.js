@@ -15,7 +15,7 @@ const getCartItems = async(req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).send({
-            message: `Get Cart Item Controller ERROR ${error}`,
+            message: `Get Cart Books Controller ERROR ${error}`,
             success: false
         })
     }
@@ -31,7 +31,7 @@ const addCartItem = async(req, res) => {
         let item = await bookModel.findOne({_id: bookId});
 
         if(!item){
-            return res.status(404).json({ message : "Item not found"});
+            return res.status(404).json({ message : "Book not found"});
         }
 
         const originalPrice = item.originalPrice;
@@ -47,14 +47,14 @@ const addCartItem = async(req, res) => {
                 // let bookItem = cart.items[itemIndex];
                 // bookItem.quantity += quantity;
                 // cart.items[itemIndex] = bookItem;
-                return res.status(200).json({cart: cart, message: "Item already exist" });
+                return res.status(200).json({cart: cart, message: "Book already exist" });
             } else {
                 cart.items.push({  bookId, name, imgurl, quantity, price, originalPrice });
             }
 
             cart.bill += quantity * price;
             cart = await cart.save();
-            return res.status(200).json({ cart: cart, message: "Item added successfully" });
+            return res.status(200).json({ cart: cart, message: "Book added successfully" });
         } else {
             // if no cart exists for given user create new one
             const newCart = await cartModel.create({
@@ -62,14 +62,14 @@ const addCartItem = async(req, res) => {
                 items: [{ bookId, name, imgurl, quantity, originalPrice, price }],
                 bill: quantity * price
             });
-            return res.status(201).json({ cart: newCart, message: "Item added" });
+            return res.status(201).json({ cart: newCart, message: "Book added successfully" });
 
         }
 
     } catch (error) {
         console.log(error);
         res.status(500).send({
-            message: `Add Cart Item Controller ERROR ${error}`,
+            message: `Add Book Controller ERROR ${error}`,
             success: false
         })
     }
@@ -79,13 +79,14 @@ const addCartItem = async(req, res) => {
 const addCartItemINCRDECR = async(req, res) => {
     const userId = req.user.id;
     const { bookId, type } = req.body;
+    let message;
 
     try {
         let cart = await cartModel.findOne({userId});
         let item = await bookModel.findOne({_id: bookId});
 
         if(!item){
-            res.status(404).send("Item not found");
+            res.status(404).send("Book not found");
         }
 
         const originalPrice = item.originalPrice;
@@ -105,12 +106,14 @@ const addCartItemINCRDECR = async(req, res) => {
                     bookItem.quantity += 1;
                     quantity = bookItem.quantity
                     cart.bill += price;
+                    message = "Book quantity incremented"
                 } else if (type == "DECR"){
                     if (bookItem.quantity > 1){
                         // Decrementing quantity by 1
                         bookItem.quantity -= 1;
                         quantity = bookItem.quantity
                         cart.bill -= price;
+                        message = "Book quantity decremented"
                     } 
                 }
                
@@ -118,10 +121,11 @@ const addCartItemINCRDECR = async(req, res) => {
             } else {
                 quantity = 1;
                 cart.items.push({  bookId, name, imgurl, quantity, price, originalPrice });
+                message = "Book added successfully"
             }
 
             cart = await cart.save();
-            return res.status(201).send(cart);
+            return res.status(201).send({ cart: cart, message: message });
         } else {
             // if no cart exists for given user create new one
             let quantity = 1;
@@ -159,7 +163,7 @@ const deleteCartItem = async(req, res) => {
         }
 
         cart = await cart.save();
-        return res.status(201).send(cart);
+        return res.status(201).send({cart: cart, message: "Book removed from cart"});
 
     } catch (error) {
         console.log(error);

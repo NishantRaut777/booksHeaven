@@ -79,7 +79,7 @@ const Mycart = () => {
       <div className='py-5 px-2'>
         <h1 className="ml-2 text-lg font-semibold">My Cart</h1>
         <div className="my-cart-books-div flex flex-col pb-4">
-            {cart?.items?.map((item) => (
+            {cartNew?.items?.map((item) => (
               <div key={item.bookId} className="flex p-2 hover:bg-gray-100 transition duration-200 rounded-md">
                 <div className='flex flex-row basis-[80vw]'>
                 <div className="book-img mr-2 pt-1 flex-shrink-0">

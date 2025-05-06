@@ -241,7 +241,7 @@ const Navbar2 = () => {
 
   {/* Cart Items - Allow flexible height */}
   <div className="p-4 space-y-4 overflow-y-auto custom-scrollbar">
-  {cart?.items?.map((item) => (
+  {cartNew?.items?.map((item) => (
     <div key={item.bookId} className="flex p-2 border-b">
       {/* Fix Image Sizing */}
       <div className="w-16 h-20">

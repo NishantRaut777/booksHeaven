@@ -90,8 +90,14 @@ const Checkout = () => {
       if (data.message){
         message.success(data.message)
       }
+
       queryClient.invalidateQueries(["cart"]);
-      navigate("/");
+
+      // To make sure cart state doesnt give old data
+      setTimeout(() => {
+        navigate("/");
+    }, 2000);
+      
     },
     onError: (error) => {
       console.log(error);
@@ -117,7 +123,7 @@ const Checkout = () => {
             <p className="ml-4 py-2 text-lg font-bold">No items in cart</p>
           ) : (
             <div className="p-4 space-y-4 overflow-y-auto h-[calc(100%-50px)] custom-scrollbar">
-              {cart?.items?.map((item) => (
+              {cartNew?.items?.map((item) => (
                 <div key={item.bookId} className="flex p-2 border-b">
                   <img
                     className="w-20 h-28 object-cover"

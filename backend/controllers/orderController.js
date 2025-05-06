@@ -13,8 +13,8 @@ const checkoutOrder = async(req,res) => {
         if(!cartData){
             res.status(404).send("There is no cart for current user");
         }
-        const cartItems = cartData.items;
-        const cartBill = cartData.bill;
+        const cartItems = cartData?.items;
+        const cartBill = cartData?.bill;
         const orderData = {
             userId: userId,
             Name: Name,

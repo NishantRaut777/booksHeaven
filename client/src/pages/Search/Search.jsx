@@ -8,6 +8,7 @@ import Slider from 'rc-slider';
 import "rc-slider/assets/index.css";
 import { Dialog } from '@headlessui/react';
 import { Filter } from 'lucide-react';
+import Footer from "../../components/Footer"
 import "./Search.css"
 
 const Search = () => {
@@ -158,20 +159,17 @@ const Search = () => {
       </Dialog>
 
       {/* Books Listing */}
-      <div className="md:hidden px-4">
+      <div className="md:hidden px-4 py-4">
         {filteredBooks?.length > 0 ? (
           <ul>
             {filteredBooks?.map((book) => (
               <div className="flex flex-row gap-4 mb-4 p-2 border-b">
-                <div className="book-image">
-                  <Link to={`/book/${book?._id}`}>
-                    <img
-                      className="w-16 h-20 hover:scale-105 transition-transform"
-                      src={book.imgurl}
-                      alt=""
-                    />
+                <div className="book-img mr-2 pt-1 flex-shrink-0">
+                 <Link to={`/book/${book?._id}`}>
+                  <img className="size-20 rounded-md" src={book.imgurl} alt={book.name} />
                   </Link>
                 </div>
+
                 <div>
                   <h3 className="text-lg font-semibold">{book.name}</h3>
                   <p className="text-gray-600">by {book?.author}</p>
@@ -247,7 +245,7 @@ const Search = () => {
         </div>
 
         {/* Books Section */}
-        <div className="filter-books-container w-[75%]">
+        <div className="filter-books-container w-[75%] py-4">
           {filteredBooks.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {filteredBooks.map((book) => (
@@ -283,6 +281,8 @@ const Search = () => {
           )}
         </div>
       </div>
+
+      <Footer />
     </>
   );
 }

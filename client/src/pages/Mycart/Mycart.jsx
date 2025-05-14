@@ -34,6 +34,7 @@ const Mycart = () => {
       },
       onError: (error) => {
         console.error(error);
+        message.error("Please Login Again")
       }
     });
 
@@ -48,6 +49,7 @@ const Mycart = () => {
       },
       onError: (error) => {
         console.error(error);
+        message.error("Please Login Again")
       }
     })
 
@@ -79,7 +81,7 @@ const Mycart = () => {
       <div className='py-5 px-2'>
         <h1 className="ml-2 text-lg font-semibold">My Cart</h1>
         <div className="my-cart-books-div flex flex-col pb-4">
-            {cartNew?.items?.map((item) => (
+            {cart?.items?.map((item) => (
               <div key={item.bookId} className="flex p-2 hover:bg-gray-100 transition duration-200 rounded-md">
                 <div className='flex flex-row basis-[80vw]'>
                 <div className="book-img mr-2 pt-1 flex-shrink-0">
@@ -123,9 +125,9 @@ const Mycart = () => {
             ))}
         </div>
 
-        { cartNew?.items?.length > 0 ?  <p className="ml-2 py-2 text-md font-semibold">Total Bill: {cartNew?.bill}</p>: ""}
+        { cart?.items?.length > 0 ?  <p className="ml-2 py-2 text-md font-semibold">Total Bill: {cart?.bill}</p>: ""}
 
-        {cartNew?.items?.length > 0 ? (
+        {cart?.items?.length > 0 ? (
           <div className="border-t border-indigo-600 p-4 bg-white">
             <button className="w-full bg-indigo-600 text-white py-2 rounded-md text-lg font-medium hover:bg-indigo-700 transition duration-300" onClick={() => navigate("/checkout")}>
               Checkout

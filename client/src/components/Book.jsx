@@ -28,11 +28,11 @@ const Book = ({
       if (res && res.message) {
         message.success(res.message);
       } else {
-        message.error("Failed while adding book to cart");
+        message.error("Please Login Again");
       }
     } catch (error) {
       console.error("Error adding item to the cart:", error);
-      message.error("Failed while adding book to cart");
+      message.error("Please Login again");
     }
     // await addToCart(item)
     // .then((res) => {

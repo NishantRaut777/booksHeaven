@@ -35,7 +35,6 @@ const Navbar2 = () => {
   const navigate = useNavigate();
 
   const cartNew = useSelector((state) => state.cart.cartData);
-  const cartCount = cartNew?.items?.length;
 
   const loggedInUser = useSelector((state) => state.user.user);
   // console.log("LOGGED IN USER: ", loggedInUser);
@@ -45,6 +44,7 @@ const Navbar2 = () => {
 
   const { updateCartItem, deleteCartItem } = useCartActions();
   const { cart } = useFetchCart();
+  const cartCount = cart?.items?.length;
 
   // deciding ismobile or not
   useEffect(() => {
@@ -67,6 +67,7 @@ const Navbar2 = () => {
       queryClient.invalidateQueries(['cart']);
     },
     onError: (error) => {
+      message.error("Please Login Again")
       console.error(error);
     }
   });
@@ -81,6 +82,7 @@ const Navbar2 = () => {
       queryClient.invalidateQueries(["cart"]);
     },
     onError: (error) => {
+      message.error("Please Login Again")
       console.error(error);
     }
   })
@@ -241,7 +243,7 @@ const Navbar2 = () => {
 
   {/* Cart Items - Allow flexible height */}
   <div className="p-4 space-y-4 overflow-y-auto custom-scrollbar">
-  {cartNew?.items?.map((item) => (
+  {cart?.items?.map((item) => (
     <div key={item.bookId} className="flex p-2 border-b">
       {/* Fix Image Sizing */}
       <div className="w-16 h-20">
@@ -268,13 +270,13 @@ const Navbar2 = () => {
       </button>
     </div>
   ))}
-  { cartNew?.items?.length > 0 ? <p className="ml-2 text-black font-semibold">Total Bill: {cartNew?.bill}</p>: <p className="text-black font-semibold">Your cart is empty</p> }
+  { cart?.items?.length > 0 ? <p className="ml-2 text-black font-semibold">Total Bill: {cart?.bill}</p>: <p className="text-black font-semibold">Your cart is empty</p> }
   
 </div>
 
 
   {/* Checkout Button - Always visible */}
-  { cartNew?.items?.length > 0 ? (
+  { cart?.items?.length > 0 ? (
     <div className="border-t border-indigo-600 p-4 bg-white">
     <button className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700" onClick={() => navigate("/checkout")}>
       Checkout

@@ -41,6 +41,7 @@ const Checkout = () => {
       queryClient.invalidateQueries(["cart"]);
     },
     onError: (error) => {
+      message.error("Please Login Again")
       console.error(error);
     },
   });
@@ -56,6 +57,7 @@ const Checkout = () => {
     },
     onError: (error) => {
       console.error(error);
+      message.error("Please Login Again")
     },
   });
 
@@ -101,6 +103,7 @@ const Checkout = () => {
     },
     onError: (error) => {
       console.log(error);
+      message.error("Please Login Again")
     },
   });
 
@@ -115,15 +118,15 @@ const Checkout = () => {
       <div className="flex flex-col md:flex-row gap-6 py-6 px-3 bg-gray-50">
         <div
           className={`${
-            cartNew?.items?.length > 2 ? "h-[70vh]" : "h-[auto]"
+            cart?.items?.length > 2 ? "h-[70vh]" : "h-[auto]"
           } md:w-[50%]`}
         >
           <h1 className="ml-4 text-xl font-semibold">Order Summary</h1>
-          {cartNew?.items?.length === 0 ? (
+          {cart?.items?.length === 0 ? (
             <p className="ml-4 py-2 text-lg font-bold">No items in cart</p>
           ) : (
             <div className="p-4 space-y-4 overflow-y-auto h-[calc(100%-50px)] custom-scrollbar">
-              {cartNew?.items?.map((item) => (
+              {cart?.items?.map((item) => (
                 <div key={item.bookId} className="flex p-2 border-b">
                   <img
                     className="w-20 h-28 object-cover"
@@ -172,7 +175,7 @@ const Checkout = () => {
               ))}
             </div>
           )}
-          { cartNew?.items?.length > 0 ?  <p className="ml-4 py-2 text-md font-semibold">Total Bill: {cartNew?.bill}</p>: ""}
+          { cart?.items?.length > 0 ?  <p className="ml-4 py-2 text-md font-semibold">Total Bill: {cart?.bill}</p>: ""}
         </div>
 
         <div className="md:w-[50%]">
@@ -215,12 +218,12 @@ const Checkout = () => {
                 type="submit"
                 className={`w-32 py-2 text-lg font-semibold transition-all rounded-lg 
 ${
-  cartNew?.items?.length === 0 || checkoutMutation.isLoading
+  cart?.items?.length === 0 || checkoutMutation.isLoading
     ? "bg-gray-400 text-gray-700 cursor-not-allowed" // Disabled state
     : "bg-blue-500 text-white hover:bg-blue-600 hover:shadow-md active:scale-95"
 }`} // Enabled state
                 disabled={
-                  cartNew?.items?.length === 0 || checkoutMutation.isLoading
+                  cart?.items?.length === 0 || checkoutMutation.isLoading
                 }
               >
                 {checkoutMutation.isLoading ? "Processing..." : "Checkout"}

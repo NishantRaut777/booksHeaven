@@ -65,11 +65,12 @@ const SingleBook = () => {
       if (res && res.message) {
         message.success(res.message);
       } else {
-        message.error("Failed while adding book to cart");
+        message.error("Please Login Again");
       }
     } catch (error) {
       console.error("Error adding item to the cart:", error);
-      message.error("Failed while adding book to cart");
+      // message.error("Failed while adding book to cart");
+      message.error("Please Login Again");
     }
   };
 
@@ -86,11 +87,13 @@ const SingleBook = () => {
       if (res && res.message) {
         navigate("/checkout");
       } else {
-        message.error("Failed while adding book to cart");
+        // message.error("Failed while adding book to cart");
+        message.error("Please Login Again");
       }
     } catch (error) {
       console.error("Error adding item to the cart:", error);
-      message.error("Failed while adding book to cart");
+      // message.error("Failed while adding book to cart");
+      message.error("Please Login Again");
     }
   };
 

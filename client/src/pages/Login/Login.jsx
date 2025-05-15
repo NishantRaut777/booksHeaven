@@ -23,9 +23,9 @@ const Login = () => {
     };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex  items-center justify-center h-screen bg-[#454241]">
       <form
-        className="w-full max-w-md p-6 bg-white rounded-sm shadow-md"
+        className="w-[90%] md:w-full max-w-md p-6 bg-white rounded-sm shadow-md"
         onSubmit={handleSubmit}
       >
         <h2 className="mb-6 text-2xl font-bold text-center text-gray-700">
@@ -64,7 +64,7 @@ const Login = () => {
             <div className="mr-3">
               <button
                 type="submit"
-                className="w-full px-10 py-2 text-white bg-blue-500 rounded-sm hover:bg-blue-600 focus:ring focus:ring-blue-400"
+                className="w-24 md:w-full px-2 md:px-5 py-2 text-white bg-blue-500 rounded-sm hover:bg-blue-600 focus:ring focus:ring-blue-400"
                 disabled={loginMutation.isLoading}
               >
                 {loginMutation.isLoading ? "Logging in..." : "Log in"}
@@ -74,7 +74,7 @@ const Login = () => {
             <div className=''>
               <Link
                 to="/register"
-                className="inline-flex items-center justify-center w-full px-10 py-2 bg-green-400 rounded-sm hover:bg-green-500 "
+                className="inline-flex items-center justify-center w-24 md:w-full px-2 md:px-5 py-2 bg-green-400 rounded-sm hover:bg-green-500 "
               >
                 Register
               </Link>

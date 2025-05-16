@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { data, Link, useNavigate } from "react-router-dom";
 import { message } from "antd";
+import "./Register.css"
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -72,7 +73,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-[#454241]">
+    <div className="register-main-container flex items-center justify-center h-screen bg-[#454241]">
       <form
         className="w-[90%] md:w-full max-w-md p-6 bg-white rounded-lg shadow-md"
         onSubmit={handleSubmit}

@@ -7,6 +7,7 @@ import Navbar2 from "../../components/Navbar2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Book2 from '../../components/Book2';
+import "./AuthorBooks.css"
 
 const AuthorBooks = () => {
     const location = useLocation();
@@ -26,7 +27,7 @@ const AuthorBooks = () => {
   return (
     <>
          <Navbar2 />
-      <div className="container mx-auto mt-5 flex flex-col px-3">
+      <div className="container author-books-container mx-auto mt-5 flex flex-col px-3">
         { isLoading && <p>Loading Books....</p> }
         { isError && <p>Something went wrong</p> }
 

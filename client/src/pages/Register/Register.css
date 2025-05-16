@@ -1,10 +1,6 @@
-.bookCategoriesContainer{
+.register-main-container{
      font-family: "DM Sans", sans-serif;
   font-optical-sizing: auto;
   /* font-weight: <weight>; */
   font-style: normal;
-}
-
-.bookCategories-2-container::-webkit-scrollbar{
-    display: none;
 }

@@ -80,7 +80,7 @@ const Myprofile = () => {
         </div>
       </div>
 
-      <div className="px-6 pb-5">
+      <div className="my-orders-container px-6 pb-5">
         <h2 className="text-xl font-semibold mb-4 text-gray-800">
           Your Orders
         </h2>

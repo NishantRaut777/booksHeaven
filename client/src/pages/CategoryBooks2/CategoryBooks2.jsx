@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Book from "../../components/Book";
 import Book2 from "../../components/Book2";
+import "./CategoryBooks2.css"
 
 const CategoryBooks2 = () => {
     const location = useLocation();
@@ -27,7 +28,7 @@ const CategoryBooks2 = () => {
   return (
     <>
       <Navbar2 />
-      <div className="container mx-auto mt-5 flex flex-col px-3 pb-12">
+      <div className="container categoryBooks2-container mx-auto mt-5 flex flex-col px-3 pb-12">
         { isLoading && <p>Loading Books....</p> }
         { isError && <p>Something went wrong</p> }
 

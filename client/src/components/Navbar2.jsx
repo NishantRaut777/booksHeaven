@@ -14,6 +14,7 @@ import "../styles/Navbar2.css";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { clearUser } from "../redux/user/userSlice";
 import { message } from 'antd';
+import logoImg from "../../src/assets/booksHeavenLogo.jpg"
 
 
 const Navbar2 = () => {
@@ -132,15 +133,15 @@ const Navbar2 = () => {
   }
 
   return (
-    <nav className="my-navbar relative bg-[#333333] text-white">
-    <div className="flex w-[100vw] items-center justify-between p-2 md:p-4">
+    <nav className="my-navbar relative bg-[#fcf4ee]">
+    <div className="flex w-[100vw] items-center justify-between p-2 md:px-4 py-2">
       <div className="flex flex-col items-center w-full md:hidden">
         <div className="flex items-center w-full">
           <Hamburger className="w-[10%]" toggled={isOpen} size={20} toggle={setIsOpen} />
 
-          <div className="w-[80%] text-center text-lg font-bold">
+          <div className="w-[80%] text-center text-lg font-bold flex justify-center flex-shrink-0">
             <Link to={"/"} className="no-underline text-black-200">
-              Logo
+              <img className="size-16 rounded-md" src={logoImg} alt="Image" />
             </Link>
           </div>
 
@@ -172,9 +173,9 @@ const Navbar2 = () => {
       </div>
 
       <div className="hidden w-full md:flex items-center justify-between">
-        <div className="text-lg font-bold mx-14">
+        <div className="text-lg font-bold mx-14 flex-shrink-0">
           <Link to={"/"} className="no-underline text-black-200">
-            Logo
+            <img className="size-16 rounded-md" src={logoImg} alt="Image" />
           </Link>
         </div>
         <div className="flex w-[60%] justify-center">

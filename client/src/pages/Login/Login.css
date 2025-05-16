@@ -1,12 +1,6 @@
-.profile-info-div, .my-orders-container{
+.login-main-container{
     font-family: "DM Sans", sans-serif;
   font-optical-sizing: auto;
   /* font-weight: <weight>; */
   font-style: normal;
 }
-
-.myprofile-orders-scroll-container::-webkit-scrollbar{
-    display: none;
-}
-
-

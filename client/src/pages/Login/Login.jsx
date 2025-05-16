@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios from "axios";
 import useLogin from '../../hooks/useLogin';
 import { Link } from 'react-router-dom';
+import "./Login.css"
 
 const Login = () => {
 
@@ -23,7 +24,7 @@ const Login = () => {
     };
 
   return (
-    <div className="flex  items-center justify-center h-screen bg-[#454241]">
+    <div className="login-main-container flex  items-center justify-center h-screen bg-[#454241]">
       <form
         className="w-[90%] md:w-full max-w-md p-6 bg-white rounded-sm shadow-md"
         onSubmit={handleSubmit}

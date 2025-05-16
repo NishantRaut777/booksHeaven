@@ -1,3 +1,11 @@
+.footer-container {
+   font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  /* font-weight: <weight>; */
+  font-style: normal;
+}
+
+
 @keyframes gradientMove {
     0% {
       background-position: 0% 50%;

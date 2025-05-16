@@ -92,7 +92,7 @@ const CategoryBooks = () => {
     }
 
   return (
-    <div className="">
+    <div className="myCategories-container">
       <div className="flex flex-row justify-center items-center py-6 md:space-x-4">
         <div className="left-logo cursor-pointer px-2 w-8 md:w-12" onClick={scrollLeft}>
           <img src={leftIcon}></img>

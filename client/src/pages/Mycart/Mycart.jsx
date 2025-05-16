@@ -9,6 +9,7 @@ import Navbar2 from '../../components/Navbar2';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { message } from 'antd';
+import "./Mycart.css"
 
 const Mycart = () => {
     const dispatch = useDispatch();
@@ -78,11 +79,11 @@ const Mycart = () => {
   return (
     <>
       <Navbar2 />
-      <div className='py-5 px-2'>
-        <h1 className="ml-2 text-lg font-semibold">My Cart</h1>
+      <div className='mycart-mobile-container py-5 px-2'>
+        <h1 className="ml-2 text-lg font-semibold mb-2">My Cart</h1>
         <div className="my-cart-books-div flex flex-col pb-4">
             {cart?.items?.map((item) => (
-              <div key={item.bookId} className="flex p-2 hover:bg-gray-100 transition duration-200 rounded-md">
+              <div key={item.bookId} className="flex p-2rounded-md">
                 <div className='flex flex-row basis-[80vw]'>
                 <div className="book-img mr-2 pt-1 flex-shrink-0">
                   <img className="size-20 rounded-md" src={item.imgurl} alt={item.name} />

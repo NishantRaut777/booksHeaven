@@ -3,6 +3,7 @@ import { message } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import "./VerifyOtp.css"
 
 const VerifyOtp = () => {
     const [otp, setOtp] = useState("");
@@ -36,7 +37,7 @@ const VerifyOtp = () => {
     };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-800">
+    <div className="veriyOtp-main-container flex items-center justify-center h-screen bg-gray-800">
       <form
         className="w-full max-w-md p-6 bg-white rounded-lg shadow-md"
         onSubmit={handleSubmit}

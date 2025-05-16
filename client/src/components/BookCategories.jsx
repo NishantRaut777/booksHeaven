@@ -34,7 +34,7 @@ const BookCategories = () => {
 
   return (
     <>
-      <div className="flex items-center space-x-2 md:space-x-4 my-10 pl-3 md:pl-10 pr-2">
+      <div className="bookCategoriesContainer flex items-center space-x-2 md:space-x-4 my-10 pl-3 md:pl-10 pr-2">
         <div
           ref={scrollContainerRef}
           className="bookCategories-2-container flex overflow-x-auto  scroll-smooth w-[98%] scrollbar-hide md:w-[95%]"

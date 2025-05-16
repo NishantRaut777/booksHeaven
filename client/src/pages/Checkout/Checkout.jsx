@@ -11,6 +11,7 @@ import useOrderActions from "../../hooks/useOrderActions";
 import Navbar2 from "../../components/Navbar2";
 import { useSelector } from "react-redux";
 import { message } from 'antd';
+import "./Checkout.css"
 
 const Checkout = () => {
   const [formData, setFormData] = useState({
@@ -115,7 +116,7 @@ const Checkout = () => {
   return (
     <>
       <Navbar2 />
-      <div className="flex flex-col md:flex-row gap-6 py-6 px-3 bg-gray-50">
+      <div className="checkout-container flex flex-col md:flex-row gap-6 py-6 px-3 bg-gray-50">
         <div
           className={`${
             cart?.items?.length > 2 ? "h-[70vh]" : "h-[auto]"

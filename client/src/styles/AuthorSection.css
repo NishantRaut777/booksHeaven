@@ -1,3 +1,10 @@
+.myauthors-container{
+    font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  /* font-weight: <weight>; */
+  font-style: normal;
+}
+
 .author-scroll-container::-webkit-scrollbar{
     display: none;
 }

@@ -82,7 +82,7 @@ const AuthorSection = () => {
         </div>
       </div> */}
 
-      <div className="md:mx-12 pb-12 mb-12 bg-gray-100">
+      <div className="myauthors-container md:mx-12 pb-12 mb-12 bg-gray-100">
         <h1 className="text-center p-3 text-2xl font-bold">Featured Authors</h1>
         <div className="authors-inner-container flex flex-row">
           <div

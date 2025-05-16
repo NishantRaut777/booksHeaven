@@ -63,7 +63,7 @@ const Search = () => {
   return (
     <>
       <Navbar2 />
-
+      <div className='search-main-container'>
       <div className="md:hidden flex justify-between items-center p-4">
         <button
           onClick={() => setIsFilterOpen(true)}
@@ -281,7 +281,7 @@ const Search = () => {
           )}
         </div>
       </div>
-
+      </div>
       <Footer />
     </>
   );

@@ -1,3 +1,10 @@
+.myCategories-container{
+     font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  /* font-weight: <weight>; */
+  font-style: normal;
+}
+
 .scrollbar-hidden::-webkit-scrollbar {
     display: none; /* Chrome, Safari, and Edge */
 }

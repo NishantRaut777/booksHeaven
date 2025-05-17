@@ -9,6 +9,9 @@ import Navbar2 from '../../components/Navbar2';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { message } from 'antd';
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import "./Mycart.css"
 
 const Mycart = () => {
@@ -80,7 +83,14 @@ const Mycart = () => {
     <>
       <Navbar2 />
       <div className='mycart-mobile-container py-5 px-2'>
-        <h1 className="ml-2 text-lg font-semibold mb-2">My Cart</h1>
+         <div className="my-3">
+                   <Link to={`/`} className="flex items-center gap-1 ml-2 text-black-500 hover:text-black-700 transition-transform duration-200 active:scale-95">
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                            <span>Go Back</span>
+                            </Link>
+                </div>
+
+        <h1 className="ml-2 text-lg font-semibold">My Cart</h1>
         <div className="my-cart-books-div flex flex-col pb-4">
             {cart?.items?.map((item) => (
               <div key={item.bookId} className="flex p-2rounded-md">

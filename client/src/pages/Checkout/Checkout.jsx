@@ -11,6 +11,9 @@ import useOrderActions from "../../hooks/useOrderActions";
 import Navbar2 from "../../components/Navbar2";
 import { useSelector } from "react-redux";
 import { message } from 'antd';
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import "./Checkout.css"
 
 const Checkout = () => {
@@ -117,11 +120,20 @@ const Checkout = () => {
     <>
       <Navbar2 />
       <div className="checkout-container flex flex-col md:flex-row gap-6 py-6 px-3 bg-gray-50">
+        
+
         <div
           className={`${
             cart?.items?.length > 2 ? "h-[70vh]" : "h-[auto]"
           } md:w-[50%]`}
         >
+          <div className="my-3">
+           <Link to={`/`} className="flex items-center gap-2 ml-4 text-black-500 hover:text-black-700 transition-transform duration-200 active:scale-95">
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                    <span>Go Back</span>
+                    </Link>
+        </div>
+
           <h1 className="ml-4 text-xl font-semibold">Order Summary</h1>
           {cart?.items?.length === 0 ? (
             <p className="ml-4 py-2 text-lg font-bold">No items in cart</p>

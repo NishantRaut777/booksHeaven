@@ -84,7 +84,7 @@ const Search = () => {
           onClick={() => setIsFilterOpen(false)}
         ></div>
 
-        <div className="relative bg-white w-3/4 h-full shadow-lg p-4 overflow-y-auto dialog-container">
+        <div className="relative bg-white w-[60%] h-full shadow-lg p-4 overflow-y-auto dialog-container">
           <button
             className="absolute top-2 right-2 text-xl font-semibold text-gray-600 hover:text-gray-700 transition"
             onClick={() => setIsFilterOpen(false)}

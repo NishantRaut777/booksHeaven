@@ -10,7 +10,7 @@ const bookSchema = new mongoose.Schema({
         required: [true, "ImageURL is required"]
     },
     author: {
-        type: String,
+        type: [String],
         required: [true, "Author is required"]
     },
     rating: {
@@ -61,6 +61,6 @@ const bookSchema = new mongoose.Schema({
 
 }, {timestamps: true, versionKey: false});
 
-const bookModel = mongoose.model("book", bookSchema);
+const bookModel = mongoose.model("books2", bookSchema);
 
 module.exports = bookModel;

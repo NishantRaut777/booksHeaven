@@ -271,7 +271,7 @@ const Navbar2 = () => {
       </button>
     </div>
   ))}
-  { cart?.items?.length > 0 ? <p className="ml-2 text-black font-semibold">Total Bill: {cart?.bill}</p>: <p className="text-black font-semibold">Your cart is empty</p> }
+  { cart?.items?.length > 0 && <p className="ml-2 text-black font-semibold">Total Bill: {cart?.bill}</p> }
   
 </div>
 
@@ -284,9 +284,7 @@ const Navbar2 = () => {
     </button>
   </div>
   ) : 
-  <p className="ml-3">
-    Your cart is empty
-  </p>
+  <p className="text-black font-semibold ml-3">Your cart is empty</p>
 
   }
   

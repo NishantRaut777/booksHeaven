@@ -64,7 +64,7 @@ const Book = ({
             {name}
           </h3>
           <h3 className="text-sm text-gray-600 line-clamp-1">
-            by <span className="text-gray-700 font-medium">{author}</span>
+            by  {author?.join(", ")}
           </h3>
 
           <div className="flex items-center space-x-2 mt-1">

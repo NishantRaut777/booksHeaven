@@ -56,7 +56,7 @@ const CategoryBooks = () => {
       logoURL: comicBooks
     },
   ]
-    const [category, setCatgeory] = useState(categories[0]);
+    const [category, setCatgeory] = useState(categories2[0]?.category_type);
     const scrollContainerRef = useRef(null);
 
     const { fetchBooksByCategory } = useBookActions();
@@ -99,7 +99,7 @@ const CategoryBooks = () => {
         </div>
         <div className="flex flex-row  overflow-x-auto mycategories-scroll-container w-5/5 md:w-4/5 pl-0 ml-0" ref={scrollContainerRef}>
           {categories2.map((cat, index) => (
-            <div key={index} className="flex-shrink-0 flex flex-col justify-center items-center w-24 md:w-36 first:ml-0">
+            <div key={index} className="flex-shrink-0 flex flex-col justify-center items-center w-24 md:w-36 first:ml-0" onClick={() => setCatgeory(cat?.category_type)}>
               <img src={cat?.logoURL} className='w-8 flex justify-center items-center'></img>
               <p className="px-5 py-2 cursor-pointer text-center">{cat?.category_type}</p>
             </div>

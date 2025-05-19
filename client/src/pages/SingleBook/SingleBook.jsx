@@ -112,10 +112,10 @@ const SingleBook = () => {
           </div>
 
           <div className="single-book-details-container px-5 md:w-[75%]">
-            <h1 className="text-3xl font-bold text-gray-800 mt-2 md:mt-0">{book.name}</h1>
+            <h1 className="text-2xl font-bold text-gray-800 mt-2 md:mt-0 md:text-3xl">{book.name}</h1>
             <p className="text-lg text-gray-600 my-1">
               by{" "}
-              <span className="font-semibold text-gray-800">{book.author}</span>
+              <span className="font-semibold text-gray-800">{book?.author?.join(", ")}</span>
             </p>
             <div className="text-lg my-2">
               <span className="line-through text-gray-500">
@@ -125,9 +125,10 @@ const SingleBook = () => {
                 Rs. {book.discountedPrice}
               </span>
             </div>
+
             <p className="text-gray-700">
-              <span className="font-medium">Condition: </span>
-              {book.condition}
+              <span className="font-bold">Save: </span>
+              &#8377;{book?.originalPrice - book?.discountedPrice} ({book?.discountPercent}%)
             </p>
 
             <div className="flex flex-row my-4 space-x-4">
@@ -168,14 +169,35 @@ const SingleBook = () => {
             <div className="hidden md:block">
               <h2 className="font-semibold text-lg mb-2">Other Details</h2>
               <p className="text-gray-700">
-                <span className="font-medium">Publisher:</span> {book.publisher}
+                <span className="font-medium">Publisher: </span> {book.publisher}
               </p>
+              {
+                book?.edition != null ?
+                (
+                  <p className="text-gray-700">
+                <span className="font-medium">Edition: </span> {book.edition}
+              </p>)
+              :
+                  (
+                    ""
+                  )
+              }
+              
               <p className="text-gray-700">
-                <span className="font-medium">Edition:</span> {book.edition}
+                <span className="font-medium">Language: </span> {book.language}
               </p>
-              <p className="text-gray-700">
-                <span className="font-medium">Language:</span> {book.language}
-              </p>
+
+               {
+                book?.no_of_pages != null ?
+                (
+                  <p className="text-gray-700">
+                <span className="font-medium">No of Pages: </span> {book?.no_of_pages}
+              </p>)
+              :
+                  (
+                    ""
+                  )
+              }
             </div>
 
             <div className="md:hidden mb-4 border border-gray-300 rounded-lg py-3 px-4">
@@ -194,20 +216,44 @@ const SingleBook = () => {
                     <span className="font-medium">Publisher:</span>{" "}
                     {book.publisher}
                   </p>
-                  <p>
-                    <span className="font-medium">Edition:</span> {book.edition}
-                  </p>
+                 {
+                book?.edition != null ?
+                (
+                  <p className="text-gray-700">
+                <span className="font-medium">Edition: </span> {book.edition}
+              </p>)
+              :
+                  (
+                    ""
+                  )
+              }
                   <p>
                     <span className="font-medium">Language:</span>{" "}
                     {book.language}
                   </p>
+
+                  {
+                book?.no_of_pages != null ?
+                (
+                  <p className="text-gray-700">
+                <span className="font-medium">No of Pages: </span> {book?.no_of_pages}
+              </p>)
+              :
+                  (
+                    ""
+                  )
+              }
+
                 </div>
               )}
             </div>
           </div>
         </div>
       </section>
-      <section className="recommended-books-section py-3">
+
+      {
+        recommendedBooks?.length > 0 && (
+          <section className="recommended-books-section py-3">
         <h1 className="text-2xl font-bold text-center py-2">
           Recommended Books
         </h1>
@@ -230,6 +276,10 @@ const SingleBook = () => {
           </div>
         )}
       </section>
+        )
+      }
+
+      
       <Footer />
     </>
   );

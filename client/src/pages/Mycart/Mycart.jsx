@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import useFetchCart from "../../hooks/useFetchCart";
 import useCartActions from '../../hooks/useCartActions';
 import { setCart } from '../../redux/cart/cartSlice';
@@ -24,7 +24,7 @@ const Mycart = () => {
     const navigate = useNavigate();
 
     // gets user's  cart
-    const { cart , isLoading } = useFetchCart();
+    const { cart , isLoading, isError } = useFetchCart();
     const cartNew = useSelector((state) => state.cart.cartData);
    
     const updateCartMutation = useMutation({
@@ -75,6 +75,12 @@ const Mycart = () => {
     //   console.log("INSIDE MY CART", cart);
     //   dispatch(setCart(cart));
     // }
+    useEffect(() => {
+        if (isError) {
+          message.error("Please Login Again");
+          navigate("/login");
+        }
+    }, [isError, navigate]);
 
     if (isLoading) return <div>Loading...</div>
 

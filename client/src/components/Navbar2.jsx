@@ -14,7 +14,7 @@ import "../styles/Navbar2.css";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { clearUser } from "../redux/user/userSlice";
 import { message } from 'antd';
-import logoImg from "../../src/assets/booksHeavenLogo.jpg"
+import logoImg from "../../src/assets/logo.png"
 
 
 const Navbar2 = () => {

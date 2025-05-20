@@ -14,6 +14,7 @@ import newArrivals from '../assets/icons/newArrivals.png'
 import fictionBooks from '../assets/icons/fictionBooks.png'
 import childrenBooks from '../assets/icons/childrenBooks.png'
 import comicBooks from '../assets/icons/comicBooks.png'
+import BookSkeleton from './BookSkeleton';
 
 
 const CategoryBooks = () => {
@@ -68,7 +69,16 @@ const CategoryBooks = () => {
       keepPreviousData: true,      
     });
 
-    if (isLoading) return <p>Loading books....</p>
+    if (isLoading) {
+      return (
+        <div className="flex flex-row flex-nowrap overflow-x-auto md:gap-1 scrollbar-hidden md:pl-8">
+          {Array(6).fill(0).map((_, index) => (
+            <BookSkeleton key={index} />
+          ))}
+        </div>
+      );
+    } 
+    
     if (isError) return <p>Something went wrong</p>
 
     

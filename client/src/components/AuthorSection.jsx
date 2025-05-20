@@ -6,6 +6,7 @@ import "../styles/AuthorSection.css"
 import { useNavigate } from 'react-router-dom';
 import leftIcon from '../assets/icons/leftIcon3.png'
 import rightIcon from '../assets/icons/rightIcon3.png'
+import AuthorSkeleton from './AuthorSkeleton';
 
 const AuthorSection = () => {
     const scrollContainerRef = useRef(null);
@@ -50,7 +51,26 @@ const AuthorSection = () => {
     //     console.log(authorsData);
     // }
 
-    if (isAuthorsLoading) return <p>Loading Authors...</p>
+    if (isAuthorsLoading) {
+      return (
+        <div className="myauthors-container md:mx-12 pb-12 mb-12 bg-gray-100">
+          <h1 className="text-center p-3 text-2xl font-bold">Featured Authors</h1>
+          <div className="authors-inner-container flex flex-row">
+            <div className="flex items-center left-logo w-20 p-3" />
+            
+            <div className="flex flex-row gap-2 overflow-x-auto featuredAuthors-scroll-container py-8 md:p-0">
+              {Array(6).fill(0).map((_, index) => (
+                <AuthorSkeleton key={index} />
+              ))}
+            </div>
+
+            <div className="flex items-center right-logo w-20 p-3" />
+          </div>
+        </div>
+    );
+
+    }
+
     if (isAuthorError) return <p>Error Occured while getting authors</p>
 
   return (

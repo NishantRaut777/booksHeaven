@@ -14,7 +14,7 @@ import newArrivals from '../assets/icons/newArrivals.png'
 import fictionBooks from '../assets/icons/fictionBooks.png'
 import childrenBooks from '../assets/icons/childrenBooks.png'
 import comicBooks from '../assets/icons/comicBooks.png'
-import BookSkeleton from './BookSkeleton';
+import BookSkeleton from './skeletons/BookSkeleton';
 
 
 const CategoryBooks = () => {

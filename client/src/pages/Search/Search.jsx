@@ -10,6 +10,8 @@ import { Dialog } from '@headlessui/react';
 import { Filter } from 'lucide-react';
 import Footer from "../../components/Footer"
 import "./Search.css"
+import FilterSkeleton from '../../components/skeletons/FilterSkeleton';
+import SearchBookSkeleton from '../../components/skeletons/SearchBookSkeleton';
 
 const Search = () => {
     
@@ -56,7 +58,19 @@ const Search = () => {
   }, [bookFilters, isFiltersLoading]);
 
 
-  if (isLoading) return <p>Loading Books...</p>
+  if (isLoading) {
+    return (
+      <>
+        <Navbar2 />
+        <div className="flex">
+          <FilterSkeleton />
+          <SearchBookSkeleton />
+        </div>
+        <Footer />
+      </>
+    );
+  } 
+
   if (isError) return <p>Eroor</p>
 
 
@@ -246,9 +260,9 @@ const Search = () => {
 
         {/* Books Section */}
         <div className="filter-books-container w-[75%] py-4">
-          {filteredBooks.length > 0 ? (
+          {filteredBooks?.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {filteredBooks.map((book) => (
+              {filteredBooks?.map((book) => (
                 <div className="flex flex-col items-center p-2 border rounded-lg shadow-sm hover:shadow-md transition">
                   <div className="book-image">
                     <Link to={`/book/${book?._id}`}>

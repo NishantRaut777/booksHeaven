@@ -6,7 +6,7 @@ import "../styles/AuthorSection.css"
 import { useNavigate } from 'react-router-dom';
 import leftIcon from '../assets/icons/leftIcon3.png'
 import rightIcon from '../assets/icons/rightIcon3.png'
-import AuthorSkeleton from './AuthorSkeleton';
+import AuthorSkeleton from './skeletons/AuthorSkeleton';
 
 const AuthorSection = () => {
     const scrollContainerRef = useRef(null);

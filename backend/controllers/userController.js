@@ -94,25 +94,36 @@ const registerUser = async (req, res) => {
     // );
 
 
-    const isSend = await sendVerificationEmail(
-      req,
-      res,
-      name,
-      email,
-      otp
-    );
+    // const isSend = await sendVerificationEmail(
+    //   req,
+    //   res,
+    //   name,
+    //   email,
+    //   otp
+    // );
 
-    if (isSend == true) {
-      return res.status(201).send({
-        message: "Please Verify yourself for successful registeration 🙂",
-        success: true,
-      });
-    } else {
-      return res.status(500).send({
-        message: "Something went wrong while registration",
-        success: false,
-      });
-    }
+    // if (isSend == true) {
+    //   return res.status(201).send({
+    //     message: "Please Verify yourself for successful registeration 🙂",
+    //     success: true,
+    //   });
+    // } else {
+    //   return res.status(500).send({
+    //     message: "Something went wrong while registration",
+    //     success: false,
+    //   });
+    // }
+
+    res.status(201).send({
+      message: "Please verify yourself for successful registration 🙂",
+      success: true,
+    });
+
+    // Sending email in the background
+    sendVerificationEmail(req, res, name, email, otp).catch((err) => {
+      console.error("Failed to send email:", err);
+    });
+
   } catch (error) {
     console.log(error);
     res.status(500).send({

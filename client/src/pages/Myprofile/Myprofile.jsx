@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import useFetchUser from "../../hooks/useFetchUser";
 import Navbar2 from "../../components/Navbar2";
@@ -9,6 +9,9 @@ import "./Myprofile.css";
 import Footer from "../../components/Footer";
 import { Pencil, Check } from "lucide-react";
 import defaultProfileImg from '../../assets/icons/profileImageDefault.avif'
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
+import MyProfileSkeleton from "../../components/skeletons/MyProfileSkeleton";
 
 const Myprofile = () => {
   const userFrmState = useSelector((state) => state.user.user);
@@ -16,10 +19,12 @@ const Myprofile = () => {
   const { updateUser } = useUserActions();
   const { fetchOrders } = useOrderActions();
 
+  const navigate = useNavigate();
+
   const {
     data: orders,
-    isLoadingOrders,
-    isErrorOrders,
+    isLoading: isLoadingOrders,
+    isError: isErrorOrders,
   } = useQuery({
     queryKey: ["orders"],
     queryFn: () => fetchOrders(),
@@ -61,6 +66,13 @@ const Myprofile = () => {
     setIsEditing(false);
   };
 
+   useEffect(() => {
+          if (isErrorOrders) {
+            message.error("Please Login Again");
+            navigate("/login");
+          }
+      }, [isErrorOrders, navigate]);
+
   return (
     <>
       <Navbar2 />
@@ -86,7 +98,7 @@ const Myprofile = () => {
         </h2>
 
         {isLoadingOrders ? (
-          <p className="text-gray-500">Loading orders...</p>
+          <MyProfileSkeleton />
         ) : orders?.length === 0 ? (
           <p className="text-gray-500">No orders found</p>
         ) : (

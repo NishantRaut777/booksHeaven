@@ -25,6 +25,7 @@ const Checkout = () => {
 
   const { cart } = useFetchCart();
   const cartNew = useSelector((state) => state.cart.cartData);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const navigate = useNavigate();
 
@@ -36,32 +37,42 @@ const Checkout = () => {
   const { checkoutOrder } = useOrderActions();
 
   const updateCartMutation = useMutation({
-    mutationFn: ({ bookId, type }) => updateCartItem(bookId, type),
+    mutationFn: ({ bookId, type }) => {
+      setIsUpdating(true);
+      return updateCartItem(bookId, type)
+    },
     onSuccess: (data) => {
       if(data.message){
         message.success(data.message);
       }
       dispatch(setCart(data));
       queryClient.invalidateQueries(["cart"]);
+      setIsUpdating(false);
     },
     onError: (error) => {
       message.error("Please Login Again")
       console.error(error);
+       setIsUpdating(false);
     },
   });
 
   const deleteCartMutation = useMutation({
-    mutationFn: ({ bookId }) => deleteCartItem(bookId),
+    mutationFn: ({ bookId }) => {
+      setIsUpdating(true);
+      return deleteCartItem(bookId)
+    },
     onSuccess: (data) => {
       if(data.message){
         message.success(data.message);
       }
       dispatch(setCart(data));
       queryClient.invalidateQueries(["cart"]);
+      setIsUpdating(false);
     },
     onError: (error) => {
       console.error(error);
       message.error("Please Login Again")
+      setIsUpdating(false);
     },
   });
 
@@ -116,6 +127,13 @@ const Checkout = () => {
     checkoutMutation.mutate();
   };
 
+  // this useEffect makes sure that if other component changes 'cart' it will trigger dispatch to be in sync
+        useEffect(() => {
+          if(cart && !isUpdating){
+            dispatch(setCart(cart))
+          }
+        }, [cart])
+
   return (
     <>
       <Navbar2 />
@@ -124,7 +142,7 @@ const Checkout = () => {
 
         <div
           className={`${
-            cart?.items?.length > 2 ? "h-[70vh]" : "h-[auto]"
+            cartNew?.items?.length > 2 ? "h-[70vh]" : "h-[auto]"
           } md:w-[50%]`}
         >
           <div className="my-3">
@@ -135,11 +153,11 @@ const Checkout = () => {
         </div>
 
           <h1 className="ml-4 text-xl font-semibold">Order Summary</h1>
-          {cart?.items?.length === 0 ? (
+          {cartNew?.items?.length === 0 ? (
             <p className="ml-4 py-2 text-lg font-bold">No items in cart</p>
           ) : (
             <div className="p-4 space-y-4 overflow-y-auto h-[calc(100%-50px)] custom-scrollbar">
-              {cart?.items?.map((item) => (
+              {cartNew?.items?.map((item) => (
                 <div key={item.bookId} className="flex p-2 border-b">
                   <img
                     className="w-20 h-28 object-cover"
@@ -188,7 +206,7 @@ const Checkout = () => {
               ))}
             </div>
           )}
-          { cart?.items?.length > 0 ?  <p className="ml-4 py-2 text-md font-semibold">Total Bill: {cart?.bill}</p>: ""}
+          { cartNew?.items?.length > 0 ?  <p className="ml-4 py-2 text-md font-semibold">Total Bill: {cartNew?.bill}</p>: ""}
         </div>
 
         <div className="md:w-[50%]">
@@ -231,12 +249,12 @@ const Checkout = () => {
                 type="submit"
                 className={`w-32 py-2 text-lg font-semibold transition-all rounded-lg 
 ${
-  cart?.items?.length === 0 || checkoutMutation.isLoading
+  cartNew?.items?.length === 0 || checkoutMutation.isLoading
     ? "bg-gray-400 text-gray-700 cursor-not-allowed" // Disabled state
     : "bg-blue-500 text-white hover:bg-blue-600 hover:shadow-md active:scale-95"
 }`} // Enabled state
                 disabled={
-                  cart?.items?.length === 0 || checkoutMutation.isLoading
+                  cartNew?.items?.length === 0 || checkoutMutation.isLoading
                 }
               >
                 {checkoutMutation.isLoading ? "Processing..." : "Checkout"}

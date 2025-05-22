@@ -21,6 +21,7 @@ const Navbar2 = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isUpdating, setIsUpdating] = useState(false);
  
   const location = useLocation();
   const urlParams = new URLSearchParams(location.search);
@@ -45,7 +46,7 @@ const Navbar2 = () => {
 
   const { updateCartItem, deleteCartItem } = useCartActions();
   const { cart } = useFetchCart();
-  const cartCount = cart?.items?.length;
+  const cartCount = cartNew?.items?.length;
 
   // deciding ismobile or not
   useEffect(() => {
@@ -59,32 +60,43 @@ const Navbar2 = () => {
   }, []);
 
   const updateCartMutation = useMutation({
-    mutationFn:({ bookId, type }) => updateCartItem(bookId, type),
+    mutationFn:({ bookId, type }) => {
+      setIsUpdating(true);
+      return updateCartItem(bookId, type)
+    },
     onSuccess: (data) => {
       if(data.message){
         message.success(data.message);
       }
       dispatch(setCart(data));
       queryClient.invalidateQueries(['cart']);
+      setIsUpdating(false);
     },
     onError: (error) => {
       message.error("Please Login Again")
       console.error(error);
+      setIsUpdating(false);
     }
   });
     
   const deleteCartMutation = useMutation({
-    mutationFn: ({  bookId }) => deleteCartItem(bookId),
+    mutationFn: ({  bookId }) => {
+      setIsUpdating(true);
+      return deleteCartItem(bookId)
+    },
     onSuccess: (data) => {
       if(data.message){
         message.success(data.message);
       }
-      dispatch(setCart(data));
+      console.log("DELETE CART DATA", data);
+      dispatch(setCart(data.cart));
       queryClient.invalidateQueries(["cart"]);
+      setIsUpdating(false);
     },
     onError: (error) => {
       message.error("Please Login Again")
       console.error(error);
+      setIsUpdating(false);
     }
   })
     
@@ -131,6 +143,13 @@ const Navbar2 = () => {
     dispatch(clearUser());
     dispatch(clearCart());
   }
+
+  // this useEffect makes sure that if other component changes 'cart' it will trigger dispatch to be in sync
+      useEffect(() => {
+        if(cart && !isUpdating){
+          dispatch(setCart(cart))
+        }
+      }, [cart])
 
   return (
     <nav className="my-navbar relative bg-[#fcf4ee]">
@@ -244,7 +263,7 @@ const Navbar2 = () => {
 
   {/* Cart Items - Allow flexible height */}
   <div className="p-4 space-y-4 overflow-y-auto custom-scrollbar">
-  {cart?.items?.map((item) => (
+  {cartNew?.items?.map((item) => (
     <div key={item.bookId} className="flex p-2 border-b">
       {/* Fix Image Sizing */}
       <div className="w-16 h-20">
@@ -271,13 +290,13 @@ const Navbar2 = () => {
       </button>
     </div>
   ))}
-  { cart?.items?.length > 0 && <p className="ml-2 text-black font-semibold">Total Bill: {cart?.bill}</p> }
+  { cartNew?.items?.length > 0 && <p className="ml-2 text-black font-semibold">Total Bill: {cartNew?.bill}</p> }
   
 </div>
 
 
   {/* Checkout Button - Always visible */}
-  { cart?.items?.length > 0 ? (
+  { cartNew?.items?.length > 0 ? (
     <div className="border-t border-indigo-600 p-4 bg-white">
     <button className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700" onClick={() => navigate("/checkout")}>
       Checkout

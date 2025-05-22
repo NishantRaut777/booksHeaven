@@ -93,7 +93,7 @@ const Mycart = () => {
       if(cart && !isUpdating){
         dispatch(setCart(cart))
       }
-    }, [cart,isUpdating,dispatch])
+    }, [cart])
 
 
     useEffect(() => {

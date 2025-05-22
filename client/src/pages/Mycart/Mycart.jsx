@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import useFetchCart from "../../hooks/useFetchCart";
 import useCartActions from '../../hooks/useCartActions';
 import { setCart } from '../../redux/cart/cartSlice';
@@ -17,6 +17,7 @@ import "./Mycart.css"
 const Mycart = () => {
     const dispatch = useDispatch();
     const queryClient = useQueryClient();
+    const [isUpdating, setIsUpdating] = useState(false);
 
     // this function makes update api call
     const { updateCartItem, deleteCartItem } = useCartActions();
@@ -27,33 +28,44 @@ const Mycart = () => {
     const { cart , isLoading, isError } = useFetchCart();
     const cartNew = useSelector((state) => state.cart.cartData);
    
+
     const updateCartMutation = useMutation({
-      mutationFn:({ bookId, type }) => updateCartItem(bookId, type),
+      mutationFn:({ bookId, type }) => {
+        setIsUpdating(true);
+        return updateCartItem(bookId, type)
+      },
       onSuccess: (data) => {
         if(data.message){
           message.success(data.message);
         }
         dispatch(setCart(data));
         queryClient.invalidateQueries(['cart']);
+        setIsUpdating(false);
       },
       onError: (error) => {
         console.error(error);
         message.error("Please Login Again")
+        setIsUpdating(false);
       }
     });
 
     const deleteCartMutation = useMutation({
-      mutationFn: ({  bookId }) => deleteCartItem(bookId),
+      mutationFn: ({  bookId }) => {
+        setIsUpdating(true);
+        return deleteCartItem(bookId);
+      },
       onSuccess: (data) => {
         if(data.message){
           message.success(data.message);
         }
         dispatch(setCart(data));
         queryClient.invalidateQueries(["cart"]);
+        setIsUpdating(false);
       },
       onError: (error) => {
         console.error(error);
-        message.error("Please Login Again")
+        message.error("Please Login Again");
+        setIsUpdating(false);
       }
     })
 
@@ -75,6 +87,15 @@ const Mycart = () => {
     //   console.log("INSIDE MY CART", cart);
     //   dispatch(setCart(cart));
     // }
+
+    // this useEffect makes sure that if other component changes 'cart' it will trigger dispatch to be in sync
+    useEffect(() => {
+      if(cart && !isUpdating){
+        dispatch(setCart(cart))
+      }
+    }, [cart,isUpdating,dispatch])
+
+
     useEffect(() => {
         if (isError) {
           message.error("Please Login Again");
@@ -98,7 +119,7 @@ const Mycart = () => {
 
         <h1 className="ml-2 text-lg font-semibold">My Cart</h1>
         <div className="my-cart-books-div flex flex-col pb-4">
-            {cart?.items?.map((item) => (
+            {cartNew?.items?.map((item) => (
               <div key={item.bookId} className="flex p-2 rounded-md">
                 <div className='flex flex-row basis-[80vw]'>
                 <div className="book-img mr-2 pt-1 flex-shrink-0">
@@ -142,9 +163,9 @@ const Mycart = () => {
             ))}
         </div>
 
-        { cart?.items?.length > 0 ?  <p className="ml-2 py-2 text-md font-semibold">Total Bill: {cart?.bill}</p>: ""}
+        { cartNew?.items?.length > 0 ?  <p className="ml-2 py-2 text-md font-semibold">Total Bill: {cartNew?.bill}</p>: ""}
 
-        {cart?.items?.length > 0 ? (
+        {cartNew?.items?.length > 0 ? (
           <div className="border-t border-indigo-600 p-4 bg-white">
             <button className="w-full bg-indigo-600 text-white py-2 rounded-md text-lg font-medium hover:bg-indigo-700 transition duration-300" onClick={() => navigate("/checkout")}>
               Checkout
